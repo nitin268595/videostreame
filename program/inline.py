@@ -1,3 +1,4 @@
+from driver.decorators import sudo_users_only
 from pyrogram import Client, errors
 from pyrogram.types import (
     InlineQuery,
@@ -8,6 +9,7 @@ from youtubesearchpython import VideosSearch
 
 
 @Client.on_inline_query()
+@sudo_users_only
 async def inline(client: Client, query: InlineQuery):
     answers = []
     search_query = query.query.lower().strip().rstrip()
