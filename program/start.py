@@ -12,6 +12,7 @@ from config import (
     UPDATES_CHANNEL,
 )
 from program import __version__
+from driver.decorators import sudo_users_only
 from driver.filters import command, other_filters
 from pyrogram import Client, filters
 from pyrogram import __version__ as pyrover
@@ -50,11 +51,13 @@ async def _human_time_duration(seconds):
 @Client.on_message(
     command(["start", f"start@{BOT_USERNAME}"]) & ~filters.edited
 )
+@sudo_users_only
 async def start_(client: Client, message: Message):
     await message.reply_text("**Iam Alive!** ✨")
   
 
 @Client.on_message(command(["ping", f"ping@{BOT_USERNAME}"]) & ~filters.edited)
+@sudo_users_only
 async def ping_pong(client: Client, message: Message):
     start = time()
     m_reply = await message.reply_text("pinging...")
