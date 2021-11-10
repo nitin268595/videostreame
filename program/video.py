@@ -403,7 +403,7 @@ async def vstream(c: Client, m: Message):
                     )
                     await m.reply_photo(
                         photo=f"{IMG_2}",
-                        caption=f"💡 **[Live Streaming]({link}) Started!**\n🎧***By:** {requester}",
+                        caption=f"💡 **[Live Streaming]({link}) Started!**\n🎧**By:** {requester}",
                         )
                 except Exception as ep:
                     await loser.delete()
