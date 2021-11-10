@@ -235,20 +235,21 @@ async def cbunmute(_, query: CallbackQuery):
         await query.answer("❌ nothing is currently streaming", show_alert=True)
 
 
+
 @Client.on_message(
     command(["volume", f"volume@{BOT_USERNAME}", "vol"]) & other_filters
 )
 @authorized_users_only
 async def change_volume(client, m: Message):
-       range = m.command[1]
-       chat_id = m.chat.id
-       if chat_id in QUEUE:
+    range = m.command[1]
+    chat_id = m.chat.id
+    if chat_id in QUEUE:
         try:
             await call_py.change_volume_call(chat_id, volume=int(range))
             await m.reply(
-                f"🔉 **Volume Set To** `{range}`%"
+                f"✅ **Volume Set To** `{range}`%"
             )
         except Exception as e:
             await m.reply(f"🚫 **error:**\n\n`{e}`")
     else:
-        await m.reply("❌ **Nothing In Streaming**")
+        await m.reply("❌ **Nothing is Streaming!**")
