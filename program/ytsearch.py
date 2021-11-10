@@ -23,7 +23,7 @@ async def ytsearch(_, message: Message):
         [
             [
                 InlineKeyboardButton(
-                    "🗑 Close", callback_data="cls",
+                    "Close", callback_data="cls",
                 )
             ]
         ]
@@ -31,10 +31,10 @@ async def ytsearch(_, message: Message):
 
     try:
         if len(message.command) < 2:
-            await message.reply_text("/search **needs an argument !**")
+            await message.reply_text("**Give Something To search !**")
             return
         query = message.text.split(None, 1)[1]
-        m = await message.reply_text("🔎 **Searching...**")
+        m = await message.reply_text("🔎 `Searching...`")
         results = YoutubeSearch(query, max_results=5).to_dict()
         i = 0
         text = ""
