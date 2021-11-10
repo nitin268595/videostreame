@@ -3,13 +3,7 @@ from sys import version_info
 from time import time
 
 from config import (
-    ALIVE_IMG,
-    ALIVE_NAME,
-    BOT_NAME,
     BOT_USERNAME,
-    GROUP_SUPPORT,
-    OWNER_NAME,
-    UPDATES_CHANNEL,
 )
 from program import __version__
 from driver.decorators import sudo_users_only
@@ -17,7 +11,6 @@ from driver.filters import command, other_filters
 from pyrogram import Client, filters
 from pyrogram import __version__ as pyrover
 from pytgcalls import (__version__ as pytover)
-from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message
 
 __major__ = 0
 __minor__ = 2
