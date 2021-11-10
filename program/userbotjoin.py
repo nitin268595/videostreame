@@ -18,7 +18,7 @@ async def join_group(client, message):
         invitelink = await client.export_chat_invite_link(chid)
     except BaseException:
         await message.reply_text(
-            "• **i'm not have permission:**\n\n» ❌ __Add Users__",
+            "• **I Dont Have have permission:**\n\n» ❌ __Add Users__",
         )
         return
 
@@ -45,10 +45,10 @@ async def join_group(client, message):
 
 @Client.on_message(command(["userbotleave",
                             f"leave@{BOT_USERNAME}"]) & filters.group & ~filters.edited)
-@authorized_users_only
+@sudo_users_only
 async def leave_one(client, message):
     try:
-        await USER.send_message(message.chat.id, "✅ userbot successfully left chat")
+        await USER.send_message(message.chat.id, "✅ Successfully left chat")
         await USER.leave_chat(message.chat.id)
     except BaseException:
         await message.reply_text(
