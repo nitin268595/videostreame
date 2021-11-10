@@ -240,9 +240,9 @@ async def cbunmute(_, query: CallbackQuery):
 )
 @authorized_users_only
 async def change_volume(client, m: Message):
-    range = m.command[1]
-    chat_id = m.chat.id
-    if chat_id in QUEUE:
+       range = m.command[1]
+       chat_id = m.chat.id
+       if chat_id in QUEUE:
         try:
             await call_py.change_volume_call(chat_id, volume=int(range))
             await m.reply(
