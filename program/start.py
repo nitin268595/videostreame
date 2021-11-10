@@ -11,7 +11,7 @@ from driver.filters import command, other_filters
 from pyrogram import Client, filters
 from pyrogram import __version__ as pyrover
 from pytgcalls import (__version__ as pytover)
-
+from pyrogram.types import Message
 __major__ = 0
 __minor__ = 2
 __micro__ = 1
@@ -42,7 +42,7 @@ async def _human_time_duration(seconds):
 
 
 @Client.on_message(
-    command(["start", f"start@{BOT_USERNAME}"]) & ~filters.edited
+    command(["start", f"start@{BOT_USERNAME}"]) & filters.private & ~filters.edited
 )
 @sudo_users_only
 async def start_(client: Client, message: Message):
