@@ -6,7 +6,7 @@ git+https://github.com/pyrogram/pyrogram@master
 git+https://github.com/yt-dlp/yt-dlp@master
 youtube-search-python==1.4.9
 youtube-search
-ytthumb
+
 httpx==0.13.3
 python-dotenv
 aiofiles
