@@ -238,7 +238,7 @@ async def play(c: Client, m: Message):
                             requester = f"[{m.from_user.first_name}](tg://user?id={m.from_user.id})"
                             await m.reply_photo(
                                 photo=f"{IMG_2}",
-                                caption=f"💡 **Started Music Streaming**\n\n🏷 **Name:** [{songname}]({link})/n🎧 **By:** {requester}",
+                                caption=f"💡 **Started Music Streaming**\n\n🏷 **Name:** [{songname}]({link})\n🎧 **By:** {requester}",
                             )
                         except Exception as ep:
                             await suhu.delete()
