@@ -12,7 +12,7 @@ from driver.queues import QUEUE, add_to_queue
 from driver.veez import call_py, user
 from pyrogram import Client
 from pyrogram.errors import UserAlreadyParticipant, UserNotParticipant
-from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message
+from pyrogram.types import InlineKeyboardButton, InlineKMessage
 from pytgcalls import StreamType
 from pytgcalls.types.input_stream import AudioPiped
 from youtubesearchpython import VideosSearch
@@ -131,8 +131,7 @@ async def play(c: Client, m: Message):
                 await suhu.delete()
                 await m.reply_photo(
                     photo=f"{IMG_1}",
-                    caption=f"💡 **Added in Queue »`{pos}`**/n 🏷 **Title:** [{songname}]({link})\n🎧 **By:** {m.from_user.mention()}",
-                    reply_markup=keyboard,
+                    caption=f"💡 **Added in Queue »`{pos}`**/n 🏷 **Title:** [{songname}]({link})\n🎧 **By:** {m.from_user.mention()}", 
                 )
             else:
                 await call_py.join_group_call(
@@ -147,8 +146,7 @@ async def play(c: Client, m: Message):
                 requester = f"[{m.from_user.first_name}](tg://user?id={m.from_user.id})"
                 await m.reply_photo(
                     photo=f"{IMG_2}",
-                    caption=f"💡 **Started Music Streaming**\n\n🏷 **Name:** [{songname}]({link})/n🎧 **By:** {requester}",
-                    reply_markup=keyboard,
+                    caption=f"💡 **Started Music Streaming**\n\n🏷 **Title:** [{songname}]({link})/n🎧 **By:** {requester}",
                 )
         else:
             if len(m.command) < 2:
@@ -176,8 +174,7 @@ async def play(c: Client, m: Message):
                             requester = f"[{m.from_user.first_name}](tg://user?id={m.from_user.id})"
                             await m.reply_photo(
                                 photo=f"{IMG_1}",
-                                caption=f"💡 **Added in Queue »`{pos}`**/n 🏷 **Title:** [{songname}]({link})\n🎧 **By:** {m.from_user.mention()}",
-                                reply_markup=keyboard,
+                                caption=f"💡 **Added in Queue »`{pos}`**/n 🏷 **Title:** [{songname}]({link})\n🎧 **By:** {m.from_user.mention()}", 
                             )
                         else:
                             try:
@@ -193,8 +190,7 @@ async def play(c: Client, m: Message):
                                 requester = f"[{m.from_user.first_name}](tg://user?id={m.from_user.id})"
                                 await m.reply_photo(
                                     photo=f"{IMG_2}",
-                                    caption=f"💡 **Started Music Streaming**\n\n🏷 **Name:** [{songname}]({link})/n🎧 **By:** {requester}",
-                                    reply_markup=keyboard,
+                                    caption=f"💡 **Started Music Streaming**\n\n🏷 **Title:** [{songname}]({link})/n🎧 **By:** {requester}", 
                                 )
                             except Exception as ep:
                                 await suhu.delete()
@@ -203,7 +199,7 @@ async def play(c: Client, m: Message):
     else:
         if len(m.command) < 2:
             await m.reply(
-                "» reply to an **audio file** or **give something to search.**"
+                "❗ __Reply Or Gib Something To Play!__"
             )
         else:
             suhu = await m.reply("🔎 `Searching...`")
@@ -226,8 +222,7 @@ async def play(c: Client, m: Message):
                         )
                         await m.reply_photo(
                             photo=f"{IMG_1}",
-                            caption=f"💡 **Added in Queue »`{pos}`**/n 🏷 **Title:** [{songname}]({link})\n🎧 **By:** {m.from_user.mention()}",
-                            reply_markup=keyboard,
+                            caption=f"💡 **Added in Queue »`{pos}`**/n 🏷 **Title:** [{songname}]({link})\n🎧 **By:** {m.from_user.mention()}", 
                         )
                     else:
                         try:
@@ -244,7 +239,6 @@ async def play(c: Client, m: Message):
                             await m.reply_photo(
                                 photo=f"{IMG_2}",
                                 caption=f"💡 **Started Music Streaming**\n\n🏷 **Name:** [{songname}]({link})/n🎧 **By:** {requester}",
-                                reply_markup=keyboard,
                             )
                         except Exception as ep:
                             await suhu.delete()
@@ -337,8 +331,7 @@ async def stream(c: Client, m: Message):
                 await m.reply_photo(
                     photo=f"{IMG_1}",
                     caption=f"💡 **Added in Queue »`{pos}`**\n🎧 **By:** {requester}",
-                    reply_markup=keyboard,
-                )
+                    )
             else:
                 try:
                     await call_py.join_group_call(
@@ -355,8 +348,7 @@ async def stream(c: Client, m: Message):
                     )
                     await m.reply_photo(
                         photo=f"{IMG_2}",
-                        caption=f"💡 **[Audio Mode live]({link}) Stream Started**\n🎧 **By:** {requester}",
-                        reply_markup=keyboard,
+                        caption=f"💡 **[Audio Mode live]({link}) Stream Started**\n🎧 **By:** {requester}", 
                     )
                 except Exception as ep:
                     await suhu.delete()
