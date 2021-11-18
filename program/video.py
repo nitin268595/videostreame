@@ -62,6 +62,7 @@ async def ytdl(link):
 async def vplay(c: Client, m: Message):
     replied = m.reply_to_message
     chat_id = m.chat.id
+    chat_title = m.chat.title
     if m.sender_chat:
         return await m.reply_text("you're an __Anonymous Admin__ !\n\n» revert back to user account from admin rights.")
     try:
@@ -170,7 +171,7 @@ async def vplay(c: Client, m: Message):
                 requester = f"[{m.from_user.first_name}](tg://user?id={m.from_user.id})"
                 await m.reply_photo(
                     photo=f"{IMG_2}",
-                    caption=f"💡 **Video Streaming Started!**\n🏷 **Title:** [{songname}]({link})\n🎧 **By:** {requester}",
+                    caption=f"💡 **Video Streaming Started!**\n🏷 **Title:** [{songname}]({link})\n {chat_title} \n🎧 **By:** {requester}",
                     )
         else:
             if len(m.command) < 2:
