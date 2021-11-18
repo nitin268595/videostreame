@@ -148,7 +148,7 @@ async def vplay(c: Client, m: Message):
                 requester = f"[{m.from_user.first_name}](tg://user?id={m.from_user.id})"
                 await m.reply_photo(
                     photo=f"{IMG_1}",
-                    caption=f"💡 **Added in Queue »`{pos}` **\n🏷 **Title:** [{songname}]({link})\n🎧 **By:** {requester}",
+                    caption=f"💡 **Added in Queue »`{pos}` **\n🏷 **Title:** [{songname}]\n🎧 **By:** {requester}",
                     )
             else:
                 if Q == 720:
@@ -201,7 +201,7 @@ async def vplay(c: Client, m: Message):
                             requester = f"[{m.from_user.first_name}](tg://user?id={m.from_user.id})"
                             await m.reply_photo(
                                 photo=f"{IMG_1}",
-                                caption=f"💡 **Added In Queue »**`{pos}`\n🏷 **Title:** [{songname}]({url})\n🎧 By:** {requester}",
+                                caption=f"💡 **Added In Queue »**`{pos}`\n🏷 **Title:** [{songname}]({url})\n {chat_title} \n🎧 By:** {requester}",
                                 )
                         else:
                             try:
