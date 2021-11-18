@@ -189,11 +189,6 @@ async def vplay(c: Client, m: Message):
                 else:
                     songname = search[0]
                     url = search[1]
-                    opp = search.result()["result"]
-                    oppp = opp[0]
-                    thumbid = oppp["thumbnails"][0]["url"]
-                    split = thumbid.split("?")
-                    thumb = split[0].strip()
                     veez, ytlink = await ytdl(url)
                     if veez == 0:
                         await loser.edit(f"❌ yt-dl issues detected\n\n» `{ytlink}`")
@@ -205,7 +200,7 @@ async def vplay(c: Client, m: Message):
                             await loser.delete()
                             requester = f"[{m.from_user.first_name}](tg://user?id={m.from_user.id})"
                             await m.reply_photo(
-                                photo=thumb,
+                                photo=f"{IMG_1}",
                                 caption=f"💡 **Added In Queue »**`{pos}`\n🏷 **Title:** [{songname}]({url})\n🎧 By:** {requester}",
                                 )
                         else:
