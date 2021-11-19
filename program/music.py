@@ -174,7 +174,7 @@ async def play(c: Client, m: Message):
                             requester = f"[{m.from_user.first_name}](tg://user?id={m.from_user.id})"
                             await m.reply_photo(
                                 photo=f"{IMG_1}",
-                                caption=f"💡 **Added in Queue »`{pos}`**\n 🏷 **Title:** [{songname}]({link})\n🎧 **By:** {m.from_user.mention()}", 
+                                caption=f"💡 **Added in Queue »`{pos}`**\n 🏷 **Title:** [{songname}]({url})\n🎧 **By:** {m.from_user.mention()}", 
                             )
                         else:
                             try:
@@ -190,7 +190,7 @@ async def play(c: Client, m: Message):
                                 requester = f"[{m.from_user.first_name}](tg://user?id={m.from_user.id})"
                                 await m.reply_photo(
                                     photo=f"{IMG_2}",
-                                    caption=f"💡 **Started Music Streaming**\n\n🏷 **Title:** [{songname}]({link})\n🎧 **By:** {requester}", 
+                                    caption=f"💡 **Started Music Streaming**\n\n🏷 **Title:** [{songname}]({url})\n🎧 **By:** {requester}", 
                                 )
                             except Exception as ep:
                                 await suhu.delete()
@@ -222,7 +222,7 @@ async def play(c: Client, m: Message):
                         )
                         await m.reply_photo(
                             photo=f"{IMG_1}",
-                            caption=f"💡 **Added in Queue »`{pos}`**\n🏷 **Title:** [{songname}]({link})\n🎧 **By:** {m.from_user.mention()}", 
+                            caption=f"💡 **Added in Queue »`{pos}`**\n🏷 **Title:** [{songname}]({url})\n🎧 **By:** {m.from_user.mention()}", 
                         )
                     else:
                         try:
