@@ -162,6 +162,12 @@ async def play(c: Client, m: Message):
                 else:
                     songname = search[0]
                     url = search[1]
+                    search = VideosSearch(query, limit=1)
+                    roo = search.result()["result"] 
+                    orr = roo[0] 
+                    thumbid = orr["thumbnails"][0]["url"] 
+                    split = thumbid.split("?") 
+                    thumb = split[0].strip()
                     veez, ytlink = await ytdl(url)
                     if veez == 0:
                         await suhu.edit(f"❌ yt-dl issues detected\n\n» `{ytlink}`")
@@ -173,7 +179,7 @@ async def play(c: Client, m: Message):
                             await suhu.delete()
                             requester = f"[{m.from_user.first_name}](tg://user?id={m.from_user.id})"
                             await m.reply_photo(
-                                photo=f"{IMG_1}",
+                                photo=thumb,
                                 caption=f"💡 **Added in Queue »`{pos}`**\n 🏷 **Title:** [{songname}]({url})\n🎧 **By:** {m.from_user.mention()}", 
                             )
                         else:
@@ -189,7 +195,7 @@ async def play(c: Client, m: Message):
                                 await suhu.delete()
                                 requester = f"[{m.from_user.first_name}](tg://user?id={m.from_user.id})"
                                 await m.reply_photo(
-                                    photo=f"{IMG_2}",
+                                    photo=thumb,
                                     caption=f"💡 **Started Music Streaming**\n\n🏷 **Title:** [{songname}]({url})\n🎧 **By:** {requester}", 
                                 )
                             except Exception as ep:
@@ -210,6 +216,12 @@ async def play(c: Client, m: Message):
             else:
                 songname = search[0]
                 url = search[1]
+                search = VideosSearch(query, limit=1) 
+                roo = search.result()["result"] 
+                orr = roo[0] 
+                thumbid = orr["thumbnails"][0]["url"] 
+                split = thumbid.split("?") 
+                thumb = split[0].strip()
                 veez, ytlink = await ytdl(url)
                 if veez == 0:
                     await suhu.edit(f"❌ yt-dl issues detected\n\n» `{ytlink}`")
@@ -221,7 +233,7 @@ async def play(c: Client, m: Message):
                             f"[{m.from_user.first_name}](tg://user?id={m.from_user.id})"
                         )
                         await m.reply_photo(
-                            photo=f"{IMG_1}",
+                            photo=thumb,
                             caption=f"💡 **Added in Queue »`{pos}`**\n🏷 **Title:** [{songname}]({url})\n🎧 **By:** {m.from_user.mention()}", 
                         )
                     else:
@@ -237,7 +249,7 @@ async def play(c: Client, m: Message):
                             await suhu.delete()
                             requester = f"[{m.from_user.first_name}](tg://user?id={m.from_user.id})"
                             await m.reply_photo(
-                                photo=f"{IMG_2}",
+                                photo=thumb,
                                 caption=f"💡 **Started Music Streaming**\n\n🏷 **Name:** [{songname}]({url})\n🎧 **By:** {requester}",
                             )
                         except Exception as ep:
