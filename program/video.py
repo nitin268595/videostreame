@@ -375,10 +375,9 @@ async def vstream(c: Client, m: Message):
             if chat_id in QUEUE:
                 pos = add_to_queue(chat_id, "Live %Stream", livelink, link, "Video", Q)
                 await loser.delete()
-                requester = f"[{m.from_user.first_name}](tg://user?id={m.from_user.id})"
                 await m.reply_photo(
                     photo=f"{IMG_1}",
-                    caption=f"💡 **Added in Queue** »`{pos}`\n🎧 **By:** {requester}",
+                    caption=f"💡 **Added in Queue** »`{pos}`",
                     )
             else:
                 if Q == 720:
@@ -397,7 +396,7 @@ async def vstream(c: Client, m: Message):
                         ),
                         stream_type=StreamType().pulse_stream,
                     )
-                    add_to_queue(chat_id, "Live ^Stream", livelink, link, "Video", Q)
+                    add_to_queue(chat_id, "Live Stream", livelink, link, "Video", Q)
                     await loser.delete()
                     requester = (
                         f"[{m.from_user.first_name}](tg://user?id={m.from_user.id})"
