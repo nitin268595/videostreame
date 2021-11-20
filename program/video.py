@@ -377,7 +377,7 @@ async def vstream(c: Client, m: Message):
                 await loser.delete()
                 await m.reply_photo(
                     photo=f"{IMG_1}",
-                    caption=f"💡 **Added in Queue** »`{pos}`",
+                    caption=f"💡 **Added in Queue At** »`{pos}`",
                     )
             else:
                 if Q == 720:
@@ -398,12 +398,9 @@ async def vstream(c: Client, m: Message):
                     )
                     add_to_queue(chat_id, "Live Stream", livelink, link, "Video", Q)
                     await loser.delete()
-                    requester = (
-                        f"[{m.from_user.first_name}](tg://user?id={m.from_user.id})"
-                    )
                     await m.reply_photo(
                         photo=f"{IMG_4}",
-                        caption=f"💡 **[Live Streaming]({link}) Started in {chat_title}**",
+                        caption=f"▶️ **[Live Streaming]({link}) Started in {chat_title} !**",
                         )
                 except Exception as ep:
                     await loser.delete()
