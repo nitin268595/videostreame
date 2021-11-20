@@ -108,7 +108,7 @@ async def play(c: Client, m: Message):
                 pass
             except Exception as e:
                 return await m.reply_text(
-                    f"❌ **userbot failed to join**\n\n**reason**: `{e}`"
+                    f"❌ **Failed to join**\n\n**reason**: `{e}`"
                 )
 
     if replied:
@@ -131,7 +131,7 @@ async def play(c: Client, m: Message):
                 await suhu.delete()
                 await m.reply_photo(
                     photo=f"{IMG_1}",
-                    caption=f"💡 **Added in Queue »`{pos}`**\n 🏷 **Title:** [{songname}]({link})\n🎧 **By:** {m.from_user.mention()}", 
+                    caption=f"💡 **Added in Queue »`{pos}`**\n 🏷 **Title:** [{songname}]({link})", 
                 )
             else:
                 await call_py.join_group_call(
@@ -158,7 +158,7 @@ async def play(c: Client, m: Message):
                 query = m.text.split(None, 1)[1]
                 search = ytsearch(query)
                 if search == 0:
-                    await suhu.edit("❌ **No Results Found!**")
+                    await suhu.edit("❌ **No Results Found !**")
                 else:
                     songname = search[0]
                     url = search[1]
@@ -180,7 +180,7 @@ async def play(c: Client, m: Message):
                             requester = f"[{m.from_user.first_name}](tg://user?id={m.from_user.id})"
                             await m.reply_photo(
                                 photo=thumb,
-                                caption=f"💡 **Added in Queue »`{pos}`**\n 🏷 **Title:** [{songname}]({url})\n🎧 **By:** {m.from_user.mention()}", 
+                                caption=f"💡 **Added in Queue »`{pos}`**\n 🏷 **Title:** [{songname}]({url})", 
                             )
                         else:
                             try:
@@ -234,7 +234,7 @@ async def play(c: Client, m: Message):
                         )
                         await m.reply_photo(
                             photo=thumb,
-                            caption=f"💡 **Added in Queue »`{pos}`**\n🏷 **Title:** [{songname}]({url})\n🎧 **By:** {m.from_user.mention()}", 
+                            caption=f"💡 **Added in Queue »`{pos}`**\n🏷 **Title:** [{songname}]({url})", 
                         )
                     else:
                         try:
@@ -250,7 +250,7 @@ async def play(c: Client, m: Message):
                             requester = f"[{m.from_user.first_name}](tg://user?id={m.from_user.id})"
                             await m.reply_photo(
                                 photo=thumb,
-                                caption=f"💡 **Started Music Streaming**\n\n🏷 **Name:** [{songname}]({url})\n🎧 **By:** {requester}",
+                                caption=f"💡 **Started Music Streaming**\n\n🏷 **Title:** [{songname}]({url})\n🎧 **By:** {requester}",
                             )
                         except Exception as ep:
                             await suhu.delete()
