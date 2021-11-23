@@ -171,7 +171,7 @@ async def vplay(c: Client, m: Message):
                 requester = f"[{m.from_user.first_name}](tg://user?id={m.from_user.id})"
                 await m.reply_photo(
                     photo=f"{IMG_2}",
-                    caption=f"💡 **Video Streaming Started in {chat_title} by {requester} !**\n🏷 **Title:** [{songname}]({link})",
+                    caption=f"💡 **Video Streaming Started in {chat_title} by {requester} !**\n\n🏷 **Title:** [{songname}]({link})",
                     )
         else:
             if len(m.command) < 2:
