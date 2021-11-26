@@ -52,12 +52,11 @@ def song(_, message):
         duration = results[0]["duration"]
 
     except Exception as e:
-        message.edit("❌ **Found Nothing Gib valid Name or Limk !**")
+        m.edit("❌ **Found Nothing Gib valid Name or Limk !**")
         print(str(e))
         return
-    
-    try:
         m.edit("📥 `Downloading...`")
+    try:
         with yt_dlp.YoutubeDL(ydl_ops) as ydl:
             info_dict = ydl.extract_info(link, download=False)
             audio_file = ydl.prepare_filename(info_dict)
