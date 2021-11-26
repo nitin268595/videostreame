@@ -366,12 +366,12 @@ async def vstream(c: Client, m: Message):
         else:
             livelink = link
             veez = 1
-             search = VideosSearch(query, limit=1)
-             roo = search.result()["result"] 
-             orr = roo[0] 
-             thumbid = orr["thumbnails"][0]["url"] 
-             split = thumbid.split("?") 
-             thumb = split[0].strip()
+            search = VideosSearch(query, limit=1)
+            roo = search.result()["result"] 
+            orr = roo[0] 
+            thumbid = orr["thumbnails"][0]["url"] 
+            split = thumbid.split("?") 
+            thumb = split[0].strip()
 
         if veez == 0:
             await loser.edit(f"❌ yt-dl issues detected\n\n» `{ytlink}`")
