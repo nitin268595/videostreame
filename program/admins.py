@@ -5,7 +5,7 @@ from driver.decorators import authorized_users_only, sudo_users_only
 from driver.filters import command, other_filters
 from driver.queues import QUEUE, clear_queue
 from driver.utils import skip_current_song, skip_item
-from config import BOT_USERNAME, GROUP_SUPPORT, IMG_3, UPDATES_CHANNEL
+from config import BOT_USERNAME, GROUP_SUPPORT, UPDATES_CHANNEL
 from pyrogram.types import Message
 
 
@@ -17,13 +17,11 @@ async def skip(client, m: Message):
     if len(m.command) < 2:
         op = await skip_current_song(chat_id)
         if op == 0:
-            await m.reply("❌ **Nothing Is Currently Playing!**")
+            await m.reply("❌ **Nothing Is Currently Playing !**")
         elif op == 1:
-            await m.reply("❗ **Queues is Empty**\n\n`Leaving Vc`")
+            await m.reply("❗ **Queues is Empty** > `I am Leaving Vc`")
         else:
-            await m.reply_photo(
-                photo=f"{IMG_3}",
-                caption=f"⏭ **Skipped To Next Song!**\n\n🏷 **Title:** [{op[0]}]({op[1]})",
+            await m.reply_text(f"**⏭ Skipped To Next !**\n\n🏷 **Title:** [{op[0]}]({op[1]})",
             )
     else:
         skip = m.text.split(None, 1)[1]
@@ -54,11 +52,11 @@ async def stop(client, m: Message):
         try:
             await call_py.leave_group_call(chat_id)
             clear_queue(chat_id)
-            await m.reply("✅ **Streaming Ended!**")
+            await m.reply("✅ **Streaming Ended !**")
         except Exception as e:
             await m.reply(f"🚫 **Error:** `{e}`")
     else:
-        await m.reply("❌ **Nothing In Streaming !**")
+        await m.reply("❌ **Nothing is Streaming !**")
 
 
 @Client.on_message(
@@ -71,12 +69,12 @@ async def pause(client, m: Message):
         try:
             await call_py.pause_stream(chat_id)
             await m.reply(
-                "⏸ **Paused!**"
+                "⏸ **Paused !**"
             )
         except Exception as e:
             await m.reply(f"🚫 **Error:** `{e}`")
     else:
-        await m.reply("❌ **Nothing In Streaming !**")
+        await m.reply("❌ **Nothing is Streaming !**")
 
 
 @Client.on_message(
@@ -94,7 +92,7 @@ async def resume(client, m: Message):
         except Exception as e:
             await m.reply(f"🚫 **Error:** `{e}`")
     else:
-        await m.reply("❌ **Nothing In Streaming !**")
+        await m.reply("❌ **Nothing is Streaming !**")
 
 
 @Client.on_message(
@@ -112,7 +110,7 @@ async def mute(client, m: Message):
         except Exception as e:
             await m.reply(f"🚫 **Error:**\n\n`{e}`")
     else:
-        await m.reply("❌ **nothing in streaming**")
+        await m.reply("❌ **Nothing is Streaming**")
 
 
 @Client.on_message(
@@ -130,7 +128,7 @@ async def unmute(client, m: Message):
         except Exception as e:
             await m.reply(f"🚫 **error:**\n\n`{e}`")
     else:
-        await m.reply("❌ **nothing in streaming**")
+        await m.reply("❌ **Nothing is Streaming**")
 
 
 
