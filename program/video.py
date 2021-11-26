@@ -5,7 +5,7 @@
 import asyncio
 import re
 
-from config import ASSISTANT_NAME, BOT_USERNAME, IMG_1, IMG_4, IMG_5
+from config import ASSISTANT_NAME, BOT_USERNAME, IMG_4, IMG_5
 from driver.decorators import sudo_users_only
 from driver.filters import command, other_filters
 from driver.queues import QUEUE, add_to_queue
@@ -366,6 +366,12 @@ async def vstream(c: Client, m: Message):
         else:
             livelink = link
             veez = 1
+             search = VideosSearch(query, limit=1)
+             roo = search.result()["result"] 
+             orr = roo[0] 
+             thumbid = orr["thumbnails"][0]["url"] 
+             split = thumbid.split("?") 
+             thumb = split[0].strip()
 
         if veez == 0:
             await loser.edit(f"❌ yt-dl issues detected\n\n» `{ytlink}`")
@@ -394,7 +400,7 @@ async def vstream(c: Client, m: Message):
                     add_to_queue(chat_id, "Live Stream", livelink, link, "Video", Q)
                     await loser.delete()
                     await m.reply_photo(
-                        photo=f"{IMG_4}",
+                        photo=thumb,
                         caption=f"▶️ **[Live Streaming]({link}) Started in {chat_title} !**",
                         )
                 except Exception as ep:
