@@ -146,8 +146,7 @@ async def vplay(c: Client, m: Message):
                 pos = add_to_queue(chat_id, songname, dl, link, "Video", Q)
                 await loser.delete()
                 requester = f"[{m.from_user.first_name}](tg://user?id={m.from_user.id})"
-                await m.reply_text(f"💡 **Added in Queue at » `{pos}` **\n🏷 **Title:** {songname}\n🎧 **By:** {requester}",
-                    )
+                await m.reply_text(f"💡 **Added in Queue at » `{pos}` **\n🏷 **Title:** [{songname}]({link})")
             else:
                 if Q == 720:
                     amaze = HighQualityVideo()
@@ -169,7 +168,7 @@ async def vplay(c: Client, m: Message):
                 requester = f"[{m.from_user.first_name}](tg://user?id={m.from_user.id})"
                 await m.reply_photo(
                     photo=f"{IMG_5}",
-                    caption=f"🏷 **Title:** `{songname}`\n**🎧By:** {requester}",
+                    caption=f"🏷 **Title:** `[{songname}]({link})`\n**🎧By:** {requester}",
                     )
         else:
             if len(m.command) < 2:
@@ -202,9 +201,7 @@ async def vplay(c: Client, m: Message):
                                 chat_id, songname, ytlink, url, "Video", Q
                             )
                             await loser.delete()
-                            await m.reply_photo(
-                                photo=f"{IMG_1}",
-                                caption=f"💡 **Added In Queue »**`{pos}`\n🏷 **Title:** [{songname}]({url})",
+                            await m.reply_photo(f"💡 **Added In Queue at »**`{pos}`\n🏷 **Title:** [{songname}]({url})",
                                 )
                         else:
                             try:
