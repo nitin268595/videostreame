@@ -55,8 +55,9 @@ def song(_, message):
         m.edit("❌ **Found Nothing Gib valid Name or Limk !**")
         print(str(e))
         return
-    m.edit("📥 `Downloading...`")
+    
     try:
+        m.edit("📥 `Downloading...`")
         with yt_dlp.YoutubeDL(ydl_ops) as ydl:
             info_dict = ydl.extract_info(link, download=False)
             audio_file = ydl.prepare_filename(info_dict)
