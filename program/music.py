@@ -257,6 +257,7 @@ async def play(c: Client, m: Message):
 @sudo_users_only
 async def stream(c: Client, m: Message):
     chat_id = m.chat.id
+    chat_title = m.chat.title
     if m.sender_chat:
         return await m.reply_text("you're an __Anonymous Admin__ !\n\n» revert back to user account from admin rights.")
     try:
@@ -350,7 +351,7 @@ async def stream(c: Client, m: Message):
                     )
                     await m.reply_photo(
                         photo=f"{IMG_6}",
-                        caption=f"💡 **[Live Audio]({link}) Stream Started !**\n🎧 **By:** {requester}", 
+                        caption=f"💡 **[Live Audio]({link}) Stream Started in {chat_title} !**\n🎧 **By:** {requester}", 
                     )
                 except Exception as ep:
                     await suhu.delete()
