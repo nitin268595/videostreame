@@ -369,7 +369,7 @@ async def vstream(c: Client, m: Message):
             search = VideosSearch(query, limit=1)
             roo = search.result()["result"] 
             orr = roo[0] 
-            thumbid = orr["thumbnails"][0]["url"] 
+            thumbid = orr["thumbnails"][0]["link"] 
             split = thumbid.split("?") 
             thumb = split[0].strip()
 
