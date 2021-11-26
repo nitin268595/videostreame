@@ -168,7 +168,7 @@ async def vplay(c: Client, m: Message):
                 requester = f"[{m.from_user.first_name}](tg://user?id={m.from_user.id})"
                 await m.reply_photo(
                     photo=f"{IMG_5}",
-                    caption=f"🏷 **Title:** `[{songname}]({link})`\n**🎧By:** {requester}",
+                    caption=f"🏷 **Title:** [{songname}]({link})\n**🎧By:** {requester}",
                     )
         else:
             if len(m.command) < 2:
@@ -201,8 +201,7 @@ async def vplay(c: Client, m: Message):
                                 chat_id, songname, ytlink, url, "Video", Q
                             )
                             await loser.delete()
-                            await m.reply_photo(f"💡 **Added In Queue at »**`{pos}`\n🏷 **Title:** [{songname}]({url})",
-                                )
+                            await m.reply_text(f"💡 **Added In Queue at »**`{pos}`\n🏷 **Title:** [{songname}]({url})") 
                         else:
                             try:
                                 await call_py.join_group_call(
@@ -219,8 +218,7 @@ async def vplay(c: Client, m: Message):
                                 requester = f"[{m.from_user.first_name}](tg://user?id={m.from_user.id})"
                                 await m.reply_photo(
                                     photo=thumb,
-                                    caption=f"🏷 **Playing:** [{songname}]({url})\n🎧 **By:** {requester}",
-                                    )
+                                    caption=f"🏷 **Playing:** [{songname}]({url})\n🎧 **By:** {requester}") 
                             except Exception as ep:
                                 await loser.delete()
                                 await m.reply_text(f"🚫 error: `{ep}`")
@@ -254,13 +252,7 @@ async def vplay(c: Client, m: Message):
                     if chat_id in QUEUE:
                         pos = add_to_queue(chat_id, songname, ytlink, url, "Video", Q)
                         await loser.delete()
-                        requester = (
-                            f"[{m.from_user.first_name}](tg://user?id={m.from_user.id})"
-                        )
-                        await m.reply_photo(
-                            photo=f"{IMG_1}",
-                            caption=f"💡 **Added in Queue »**`{pos}`/n🏷 **Title:** [{songname}]({url})\n🎧 **By:** {requester}",
-                            )
+                        await m.reply_text(f"💡 **Added in Queue »** `{pos}`\n🏷 **Title:** [{songname}]({url})") 
                     else:
                         try:
                             await call_py.join_group_call(
@@ -381,10 +373,7 @@ async def vstream(c: Client, m: Message):
             if chat_id in QUEUE:
                 pos = add_to_queue(chat_id, "Live %Stream", livelink, link, "Video", Q)
                 await loser.delete()
-                await m.reply_photo(
-                    photo=f"{IMG_1}",
-                    caption=f"💡 **Added in Queue At** »`{pos}`",
-                    )
+                await m.reply_text(f"💡 **Added This Live in Queue At** »`{pos}`")  
             else:
                 if Q == 720:
                     amaze = HighQualityVideo()
