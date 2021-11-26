@@ -39,7 +39,7 @@ ydl_opts = {
 @sudo_users_only
 def song(_, message):
     query = " ".join(message.command[1:])
-    m = message.reply("🔎 `Searching...`")
+    m = await message.reply("🔎 `Searching...`")
     ydl_ops = {"format": "bestaudio[ext=m4a]"}
     try:
         results = YoutubeSearch(query, max_results=1).to_dict()
@@ -55,7 +55,7 @@ def song(_, message):
         m.edit("❌ **Found Nothing Gib valid Name or Limk !**")
         print(str(e))
         return
-    m.edit("📥 `Downloading...`")
+    await m.edit("📥 `Downloading...`")
     try:
         with yt_dlp.YoutubeDL(ydl_ops) as ydl:
             info_dict = ydl.extract_info(link, download=False)
@@ -66,7 +66,7 @@ def song(_, message):
         for i in range(len(dur_arr) - 1, -1, -1):
             dur += int(float(dur_arr[i])) * secmul
             secmul *= 60
-        m.edit("📤 `Uploading...`")
+        await m.edit("📤 `Uploading...`")
         message.reply_audio(
             audio_file,
             caption=rep,
@@ -77,7 +77,7 @@ def song(_, message):
         )
         m.delete()
     except Exception as e:
-        m.edit("❌ **Error!** `Probably Bleck Magik`")
+        await m.edit("❌ **Error!** `Probably Bleck Magik`")
         print(e)
 
     try:
