@@ -77,7 +77,7 @@ def song(_, message):
         )
         m.delete()
     except Exception as e:
-        await m.edit("❌ **Error!** `Probably Bleck Magik`")
+        m.edit("❌ **Error!** `Probably Bleck Magik`")
         print(e)
 
     try:
