@@ -21,8 +21,7 @@ async def skip(client, m: Message):
         elif op == 1:
             await m.reply("❗ **Queues is Empty** > `I am Leaving Vc`")
         else:
-            await m.reply_text(f"**⏭ Skipped To Next !**\n\n🏷 **Title:** [{op[0]}]({op[1]})",
-            )
+            await m.reply_text(f"**⏭ Skipped To Next !**\n\n🏷 **Title:** [{op[0]}]({op[1]}), disable_web_page_preview=True") 
     else:
         skip = m.text.split(None, 1)[1]
         OP = "🗑 **Removed Track From Queue:**"
