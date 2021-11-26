@@ -146,9 +146,7 @@ async def vplay(c: Client, m: Message):
                 pos = add_to_queue(chat_id, songname, dl, link, "Video", Q)
                 await loser.delete()
                 requester = f"[{m.from_user.first_name}](tg://user?id={m.from_user.id})"
-                await m.reply_photo(
-                    photo=f"{IMG_1}",
-                    caption=f"💡 **Added in Queue »`{pos}` **\n🏷 **Title:** [{songname}]\n🎧 **By:** {requester}",
+                await m.reply_text(f"💡 **Added in Queue at » `{pos}` **\n🏷 **Title:** {songname}\n🎧 **By:** {requester}",
                     )
             else:
                 if Q == 720:
