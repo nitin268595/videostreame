@@ -52,7 +52,7 @@ def song(_, message):
         duration = results[0]["duration"]
 
     except Exception as e:
-        m.edit("❌ **Found Nothing Gib valid Name or Limk !**")
+        message.edit("❌ **Found Nothing Gib valid Name or Limk !**")
         print(str(e))
         return
     
