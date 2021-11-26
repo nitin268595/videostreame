@@ -366,12 +366,6 @@ async def vstream(c: Client, m: Message):
         else:
             livelink = link
             veez = 1
-            search = VideosSearch(query, limit=1)
-            roo = search.result()["result"] 
-            orr = roo[0] 
-            thumbid = orr["thumbnails"][0]["link"] 
-            split = thumbid.split("?") 
-            thumb = split[0].strip()
 
         if veez == 0:
             await loser.edit(f"❌ yt-dl issues detected\n\n» `{ytlink}`")
@@ -400,7 +394,7 @@ async def vstream(c: Client, m: Message):
                     add_to_queue(chat_id, "Live Stream", livelink, link, "Video", Q)
                     await loser.delete()
                     await m.reply_photo(
-                        photo=thumb,
+                        photo=f"{IMG_4}",
                         caption=f"▶️ **[Live Streaming]({link}) Started in {chat_title} !**",
                         )
                 except Exception as ep:
