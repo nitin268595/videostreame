@@ -5,7 +5,7 @@
 import asyncio
 import re
 
-from config import ASSISTANT_NAME, BOT_USERNAME, IMG_1, IMG_2, UPDATES_CHANNEL
+from config import ASSISTANT_NAME, BOT_USERNAME, IMG_6
 from driver.decorators import sudo_users_only
 from driver.filters import command, other_filters
 from driver.queues import QUEUE, add_to_queue
@@ -129,10 +129,7 @@ async def play(c: Client, m: Message):
             if chat_id in QUEUE:
                 pos = add_to_queue(chat_id, songname, dl, link, "Audio", 0)
                 await suhu.delete()
-                await m.reply_photo(
-                    photo=f"{IMG_1}",
-                    caption=f"💡 **Added in Queue »`{pos}`**\n 🏷 **Title:** [{songname}]({link})", 
-                )
+                await m.reply_text(f"💡 **Added in Queue at »`{pos}`**\n 🏷 **Title:** `{songname}`") 
             else:
                 await call_py.join_group_call(
                     chat_id,
@@ -141,17 +138,17 @@ async def play(c: Client, m: Message):
                     ),
                     stream_type=StreamType().pulse_stream,
                 )
-                add_to_queue(chat_id, songname, dl, link, "Audio", 0)
+                add_to_queue(chat_id, songname, dl, "Audio", 0)
                 await suhu.delete()
                 requester = f"[{m.from_user.first_name}](tg://user?id={m.from_user.id})"
                 await m.reply_photo(
-                    photo=f"{IMG_2}",
-                    caption=f"💡 **Started Music Streaming**\n\n🏷 **Title:** [{songname}]({link})\n🎧 **By:** {requester}",
+                    photo=f"{IMG_6}",
+                    caption=f"🏷 **Playing:** `{songname}`\n🎧 **By:** {requester}",
                 )
         else:
             if len(m.command) < 2:
                 await m.reply(
-                    "❗ __Reply Or Gib Something To Play!__"
+                    "__❗Reply Or Gib Something To Play !__"
                 )
             else:
                 suhu = await m.reply("🔎 `Searching...`")
@@ -177,10 +174,9 @@ async def play(c: Client, m: Message):
                                 chat_id, songname, ytlink, url, "Audio", 0
                             )
                             await suhu.delete()
-                            requester = f"[{m.from_user.first_name}](tg://user?id={m.from_user.id})"
                             await m.reply_photo(
                                 photo=thumb,
-                                caption=f"💡 **Added in Queue »`{pos}`**\n 🏷 **Title:** [{songname}]({url})", 
+                                caption=f"💡 **Added in Queue »`{pos}`**\n 🏷 **Title:** `{songname}`", 
                             )
                         else:
                             try:
@@ -196,7 +192,7 @@ async def play(c: Client, m: Message):
                                 requester = f"[{m.from_user.first_name}](tg://user?id={m.from_user.id})"
                                 await m.reply_photo(
                                     photo=thumb,
-                                    caption=f"💡 **Started Music Streaming**\n\n🏷 **Title:** [{songname}]({url})\n🎧 **By:** {requester}", 
+                                    caption=f"🏷 **Playing:** [{songname}]({url})\n🎧 **By:** {requester}", 
                                 )
                             except Exception as ep:
                                 await suhu.delete()
@@ -205,7 +201,7 @@ async def play(c: Client, m: Message):
     else:
         if len(m.command) < 2:
             await m.reply(
-                "❗ __Reply Or Gib Something To Play!__"
+                "__❗Reply Or Gib Something To Play !__"
             )
         else:
             suhu = await m.reply("🔎 `Searching...`")
@@ -229,9 +225,6 @@ async def play(c: Client, m: Message):
                     if chat_id in QUEUE:
                         pos = add_to_queue(chat_id, songname, ytlink, url, "Audio", 0)
                         await suhu.delete()
-                        requester = (
-                            f"[{m.from_user.first_name}](tg://user?id={m.from_user.id})"
-                        )
                         await m.reply_photo(
                             photo=thumb,
                             caption=f"💡 **Added in Queue »`{pos}`**\n🏷 **Title:** [{songname}]({url})", 
@@ -250,7 +243,7 @@ async def play(c: Client, m: Message):
                             requester = f"[{m.from_user.first_name}](tg://user?id={m.from_user.id})"
                             await m.reply_photo(
                                 photo=thumb,
-                                caption=f"💡 **Started Music Streaming**\n\n🏷 **Title:** [{songname}]({url})\n🎧 **By:** {requester}",
+                                caption=f"🏷 **Playing:** [{songname}]({url})\n🎧 **By:** {requester}",
                             )
                         except Exception as ep:
                             await suhu.delete()
@@ -320,7 +313,7 @@ async def stream(c: Client, m: Message):
                 )
 
     if len(m.command) < 2:
-        await m.reply("❗ __Send Live/m3u8/Youtube Link To Stream__")
+        await m.reply("__❗Send Live/m3u8/Youtube Link To Stream !__")
     else:
         link = m.text.split(None, 1)[1]
         suhu = await m.reply("🔄 `Processing Stream...`")
@@ -340,10 +333,7 @@ async def stream(c: Client, m: Message):
                 pos = add_to_queue(chat_id, "Radio", livelink, link, "Audio", 0)
                 await suhu.delete()
                 requester = f"[{m.from_user.first_name}](tg://user?id={m.from_user.id})"
-                await m.reply_photo(
-                    photo=f"{IMG_1}",
-                    caption=f"💡 **Added in Queue »`{pos}`**\n🎧 **By:** {requester}",
-                    )
+                await m.reply_text(f"💡 **Added in Queue at » `{pos}`**\n🎧 **By:** {requester}") 
             else:
                 try:
                     await call_py.join_group_call(
@@ -359,8 +349,8 @@ async def stream(c: Client, m: Message):
                         f"[{m.from_user.first_name}](tg://user?id={m.from_user.id})"
                     )
                     await m.reply_photo(
-                        photo=f"{IMG_2}",
-                        caption=f"💡 **[Audio Mode live]({link}) Stream Started**\n🎧 **By:** {requester}", 
+                        photo=f"{IMG_6}",
+                        caption=f"💡 **[Live Audio]({link}) Stream Started !**\n🎧 **By:** {requester}", 
                     )
                 except Exception as ep:
                     await suhu.delete()
