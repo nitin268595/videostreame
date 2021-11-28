@@ -207,6 +207,7 @@ async def vplay(c: Client, m: Message):
                             )
                         else:
                             try:
+                                await loser.edit("🔄 `Joining vc...`")
                                 await call_py.join_group_call(
                                     chat_id,
                                     AudioVideoPiped(
@@ -261,6 +262,7 @@ async def vplay(c: Client, m: Message):
                         )
                     else:
                         try:
+                            await loser.edit("🔄 `Joining vc...`")
                             await call_py.join_group_call(
                                 chat_id,
                                 AudioVideoPiped(
@@ -377,7 +379,7 @@ async def vstream(c: Client, m: Message):
             await loser.edit(f"❌ yt-dl issues detected\n\n» `{ytlink}`")
         else:
             if chat_id in QUEUE:
-                pos = add_to_queue(chat_id, "Live %Stream", livelink, link, "Video", Q)
+                pos = add_to_queue(chat_id, "Live Stream", livelink, link, "Video", Q)
                 await loser.delete()
                 await m.reply_text(f"🎼 **Added This Live in Queue At** » #`{pos}`")  
             else:
@@ -388,6 +390,7 @@ async def vstream(c: Client, m: Message):
                 elif Q == 360:
                     amaze = LowQualityVideo()
                 try:
+                    await loser.edit("🔄 `Joining vc...`")
                     await call_py.join_group_call(
                         chat_id,
                         AudioVideoPiped(
