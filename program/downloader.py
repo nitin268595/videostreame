@@ -36,7 +36,6 @@ ydl_opts = {
 
 
 @Client.on_message(command(["song", f"song@{bn}"]) & ~filters.edited)
-@sudo_users_only
 def song(_, message):
     query = " ".join(message.command[1:])
     m = message.reply("🔎 `Searching...`")
