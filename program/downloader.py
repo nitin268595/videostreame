@@ -66,7 +66,6 @@ def song(_, message):
             dur += int(float(dur_arr[i])) * secmul
             secmul *= 60
         m.edit("📤 `Uploading...`")
-        m.edit("🗂 `Preparing File Name...`")
         message.reply_audio(
             audio_file,
             caption=rep,
