@@ -370,11 +370,18 @@ async def vstream(c: Client, m: Message):
         regex = r"^(https?\:\/\/)?(www\.youtube\.com|youtu\.?be)\/.+"
         match = re.match(regex, link)
         if match:
+            query = m.text.split(None, 1)[1]
+            search = VideosSearch(query, limit=1)
+            roo = search.result()["result"] 
+            orr = roo[0] 
+            thumbid = orr["thumbnails"][0]["url"] 
+            split = thumbid.split("?") 
+            thumb = split[0].strip()
             veez, livelink = await ytdl(link)
         else:
             livelink = link
             veez = 1
-
+            thumb = IMG_4
         if veez == 0:
             await loser.edit(f"❌ yt-dl issues detected\n\n» `{ytlink}`")
         else:
@@ -403,7 +410,7 @@ async def vstream(c: Client, m: Message):
                     add_to_queue(chat_id, "Live Stream", livelink, link, "Video", Q)
                     await loser.delete()
                     await m.reply_photo(
-                        photo=f"{IMG_4}",
+                        photo=thumb,
                         caption=f"▶️ **[Live Streaming]({link}) Started in {chat_title} !**",
                         )
                 except Exception as ep:
