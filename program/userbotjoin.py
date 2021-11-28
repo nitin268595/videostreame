@@ -11,36 +11,28 @@ from pyrogram.errors import UserAlreadyParticipant
     command(["userbotjoin", f"userbotjoin@{BOT_USERNAME}"]) & ~filters.private & ~filters.bot
 )
 @authorized_users_only
-@errors
-async def join_group(client, message):
-    chid = message.chat.id
+async def join_chat(c: Client, m: Message):
+    chat_id = m.chat.id
     try:
-        invitelink = await client.export_chat_invite_link(chid)
-    except BaseException:
-        await message.reply_text(
-            "• **I Dont Have have permission:**\n\n» ❌ __Add Users__",
-        )
-        return
-
-    try:
-        user = await USER.get_me()
-    except BaseException:
-        user.first_name = "music assistant"
-
-    try:
-        await USER.join_chat(invitelink)
+        invite_link = await m.chat.export_invite_link()
+        if "+" in invite_link:
+            link_hash = (invite_link.replace("+", "")).split("t.me/")[1]
+            await user.join_chat(f"https://t.me/joinchat/{link_hash}")
+        await m.chat.promote_member(
+            (await user.get_me()).id,
+            can_manage_voice_chats=True
+       
+        return await user.send_message(chat_id, "✅ I Entered in the Group")
     except UserAlreadyParticipant:
-        pass
-    except Exception as e:
-        print(e)
-        await message.reply_text(
-            f"🛑 Flood Wait Error 🛑 \n\n**userbot couldn't join your group due to heavy join requests for userbot**"
-            "\n\n**or add assistant manually to your Group and try again**",
-        )
-        return
-    await message.reply_text(
-        f"✅ **userbot succesfully entered chat**",
-    )
+        admin = await m.chat.get_member((await user.get_me()).id)
+        if not admin.can_manage_voice_chats:
+            await m.chat.promote_member(
+                (await user.get_me()).id,
+                can_manage_voice_chats=True
+            )
+            return await user.send_message(chat_id, "✅ **Hey! I am Already in this Group**")
+        return await user.send_message(chat_id, "✅ **Hey! I am Already in this Group**")
+
 
 
 @Client.on_message(command(["userbotleave",
@@ -52,13 +44,13 @@ async def leave_one(client, message):
         await USER.leave_chat(message.chat.id)
     except BaseException:
         await message.reply_text(
-            "❌ **userbot couldn't leave your group, may be floodwaits.**\n\n**» or manually kick userbot from your group**"
+            "❌ **I couldn't leave your group, may be floodwaits.** `Manually kick me from your group`"
         )
 
         return
 
 
-@Client.on_message(command(["leaveall", f"leaveall@{BOT_USERNAME}"]))
+@Client.on_message(command(["leavell", f"leavell@{BOT_USERNAME}"]))
 @sudo_users_only
 async def leave_all(client, message):
     if message.from_user.id not in SUDO_USERS:
