@@ -146,7 +146,7 @@ async def vplay(c: Client, m: Message):
                 pos = add_to_queue(chat_id, songname, dl, link, "Video", Q)
                 await loser.delete()
                 requester = f"[{m.from_user.first_name}](tg://user?id={m.from_user.id})"
-                await m.reply_text(f"🎼 **Added in Queue at » #`{pos}` **\n🏷 **Title:** `{songname}`")
+                await m.reply_text(f"🎼 **Added in Queue at » `#{pos}` **\n🏷 **Title:** `{songname}`")
             else:
                 if Q == 720:
                     amaze = HighQualityVideo()
@@ -203,7 +203,7 @@ async def vplay(c: Client, m: Message):
                             await loser.delete()
                             await m.reply_photo(
                                 photo=thumb,
-                                caption=f"**🎼 Added In Queue at »** #`{pos}`\n🏷 **Title:** `{songname}`",
+                                caption=f"**🎼 Added In Queue at »** `#{pos}`\n🏷 **Title:** `{songname}`",
                             )
                         else:
                             try:
@@ -257,7 +257,7 @@ async def vplay(c: Client, m: Message):
                         await loser.delete()
                         await m.reply_photo(
                             photo=thumb,
-                            caption=f"🎼 **Added in Queue At »** #`{pos}`\n🏷 **Title:** {songname}",
+                            caption=f"🎼 **Added in Queue At »** #`{pos}`\n🏷 **Title:** `{songname}`",
                         )
                     else:
                         try:
