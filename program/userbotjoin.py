@@ -21,7 +21,7 @@ async def join_chat(c: Client, m: Message):
         await m.chat.promote_member(
             (await user.get_me()).id,
             can_manage_voice_chats=True
-       
+        ) 
         return await user.send_message(chat_id, "✅ I Entered in the Group")
     except UserAlreadyParticipant:
         admin = await m.chat.get_member((await user.get_me()).id)
