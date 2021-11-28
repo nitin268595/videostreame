@@ -129,7 +129,7 @@ async def play(c: Client, m: Message):
             if chat_id in QUEUE:
                 pos = add_to_queue(chat_id, songname, dl, link, "Audio", 0)
                 await suhu.delete()
-                await m.reply_text(f"💡 **Added in Queue at »`{pos}`**\n 🏷 **Title:** `{songname}`") 
+                await m.reply_text(f"🎼 **Added in Queue at »`#{pos}`**\n 🏷 **Title:** `{songname}`") 
             else:
                 await call_py.join_group_call(
                     chat_id,
@@ -176,7 +176,7 @@ async def play(c: Client, m: Message):
                             await suhu.delete()
                             await m.reply_photo(
                                 photo=thumb,
-                                caption=f"💡 **Added in Queue »`{pos}`**\n 🏷 **Title:** `{songname}`", 
+                                caption=f"🎼 **Added in Queue at »`#{pos}`**\n 🏷 **Title:** `{songname}`", 
                             )
                         else:
                             try:
@@ -192,7 +192,7 @@ async def play(c: Client, m: Message):
                                 requester = f"[{m.from_user.first_name}](tg://user?id={m.from_user.id})"
                                 await m.reply_photo(
                                     photo=thumb,
-                                    caption=f"🏷 **Playing:** [{songname}]({url})\n🎧 **By:** {requester}", 
+                                    caption=f"🏷 **Playing:** `{songname}`\n🎧 **By:** {requester}", 
                                 )
                             except Exception as ep:
                                 await suhu.delete()
@@ -227,7 +227,7 @@ async def play(c: Client, m: Message):
                         await suhu.delete()
                         await m.reply_photo(
                             photo=thumb,
-                            caption=f"💡 **Added in Queue »`{pos}`**\n🏷 **Title:** [{songname}]({url})", 
+                            caption=f"🎼 **Added in Queue at »`#{pos}`**\n🏷 **Title:** `{songname}`", 
                         )
                     else:
                         try:
@@ -243,7 +243,7 @@ async def play(c: Client, m: Message):
                             requester = f"[{m.from_user.first_name}](tg://user?id={m.from_user.id})"
                             await m.reply_photo(
                                 photo=thumb,
-                                caption=f"🏷 **Playing:** [{songname}]({url})\n🎧 **By:** {requester}",
+                                caption=f"🏷 **Playing:** `{songname}`\n🎧 **By:** {requester}",
                             )
                         except Exception as ep:
                             await suhu.delete()
@@ -334,7 +334,7 @@ async def stream(c: Client, m: Message):
                 pos = add_to_queue(chat_id, "Radio", livelink, link, "Audio", 0)
                 await suhu.delete()
                 requester = f"[{m.from_user.first_name}](tg://user?id={m.from_user.id})"
-                await m.reply_text(f"💡 **Added in Queue at » `{pos}`**\n🎧 **By:** {requester}") 
+                await m.reply_text(f"🎼 **Added this Live in Queue at »** `#{pos}` **in {chat_title}**")
             else:
                 try:
                     await call_py.join_group_call(
