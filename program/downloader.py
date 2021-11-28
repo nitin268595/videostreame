@@ -55,7 +55,7 @@ def song(_, message):
         m.edit("❌ **Found Nothing Gib valid Name or Limk !**")
         print(str(e))
         return
-        m.edit("📥 `Downloading...`")
+    m.edit("📥 `Downloading...`")
     try:
         with yt_dlp.YoutubeDL(ydl_ops) as ydl:
             info_dict = ydl.extract_info(link, download=False)
@@ -77,7 +77,7 @@ def song(_, message):
         )
         m.delete()
     except Exception as e:
-        m.edit("❌ **Error!** `Probably Bleck Magik`")
+        m.edit("❌ **Error !** `Probably Bleck Magik`")
         print(e)
 
     try:
