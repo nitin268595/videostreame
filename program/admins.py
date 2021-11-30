@@ -149,18 +149,3 @@ async def change_volume(client, m: Message):
     else:
         await m.reply("❌ **Nothing is Streaming!**")
         
-@Client.on_message(
-    command(["opengc", f"opengc@{BOT_USERNAME}", "open", f"open@{BOT_USERNAME}", "vgc])
-    & other_filters
-)
-@sudo_users_only
-async def opengc(client, m: Message):
-    chat_id = m.chat.id
-    
-try:
-    await call_py.start_group_call(chat_id)
-    await m.reply("✅ **Streaming started !**")
-except Exception as e:
-    await m.reply(f"🚫 **Error:** `{e}`")
-       
-        
