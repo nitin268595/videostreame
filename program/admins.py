@@ -149,7 +149,7 @@ async def change_volume(client, m: Message):
     else:
         await m.reply("❌ **Nothing is Streaming!**")
         
-Client.on_message(
+@Client.on_message(
     command(["opengc", f"opengc@{BOT_USERNAME}", "open", f"open@{BOT_USERNAME}", "vgc])
     & other_filters
 )
