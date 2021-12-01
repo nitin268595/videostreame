@@ -249,7 +249,7 @@ async def vsong(client, message):
     except Exception as e:
         print(e)
     try:
-        msg = await message.reply("📥 `Downloading...`")
+        msg = await message.reply(progress=progress, progress_args=("📥 `Downloading...`"))
         with YoutubeDL(ydl_opts) as ytdl:
             ytdl_data = ytdl.extract_info(link, download=True)
             file_name = ytdl.prepare_filename(ytdl_data)
