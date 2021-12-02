@@ -8,7 +8,7 @@ from driver.utils import skip_current_song, skip_item
 from config import BOT_USERNAME
 from pyrogram.types import Message
 from pyrogram.raw.functions.phone import CreateGroupCall
-
+from random import randint
 
 
 @Client.on_message(command(["skip", f"skip@{BOT_USERNAME}", "vskip"]) & other_filters)
