@@ -5,8 +5,9 @@ from driver.decorators import authorized_users_only, sudo_users_only
 from driver.filters import command, other_filters
 from driver.queues import QUEUE, clear_queue
 from driver.utils import skip_current_song, skip_item
-from config import BOT_USERNAME, GROUP_SUPPORT, UPDATES_CHANNEL
+from config import BOT_USERNAME
 from pyrogram.types import Message
+from pyrogram.raw.functions.phone import CreateGroupCall
 
 
 
@@ -148,4 +149,19 @@ async def change_volume(client, m: Message):
             await m.reply(f"🚫 **error:**\n\n`{e}`")
     else:
         await m.reply("❌ **Nothing is Streaming!**")
-        
+
+@Client.on_message(filters.command(["startvc",
+                                    "startvc@{USERNAME_BOT"]) & public_filters)
+async def startvc(client, message):
+    chat_id = message.chat.id
+    try:
+        await USER.send(CreateGroupCall(
+            peer=(await USER.resolve_peer(chat_id)),
+            random_id=randint(10000, 999999999)
+        )
+        )
+        await message.reply("**Voice chat started!**")
+    except Exception:
+        await message.reply(
+            "**Error:** Add userbot as admin of your group with permission **Can manage voice chat**"
+        )
