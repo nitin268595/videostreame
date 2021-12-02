@@ -152,16 +152,16 @@ async def change_volume(client, m: Message):
 
 @Client.on_message(filters.command(["startvc",
                                     "startvc@{USERNAME_BOT"]) & other_filters)
-async def startvc(client, message):
-    chat_id = message.chat.id
+async def startvc(client, m: message):
+    chat_id = m.chat.id
     try:
         await USER.send(CreateGroupCall(
             peer=(await USER.resolve_peer(chat_id)),
             random_id=randint(10000, 999999999)
         )
         )
-        await message.reply("**Voice chat started!**")
+        await m.reply("**Voice chat started!**")
     except Exception:
-        await message.reply(
+        await m.reply(
             "**Error:** Add userbot as admin of your group with permission **Can manage voice chat**"
         )
