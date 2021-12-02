@@ -1,5 +1,5 @@
 from cache.admins import admins
-from driver.veez import call_py
+from driver.veez import call_py, user
 from pyrogram import Client, filters
 from driver.decorators import authorized_users_only, sudo_users_only
 from driver.filters import command, other_filters
@@ -150,13 +150,13 @@ async def change_volume(client, m: Message):
     else:
         await m.reply("❌ **Nothing is Streaming!**")
 
-@Client.on_message(filters.command(["startvc",
+@Client.on_message(command(["startvc",
                                     "startvc@{USERNAME_BOT"]) & other_filters)
-async def startvc(client, m: message):
+async def startvc(client, m: Message):
     chat_id = m.chat.id
     try:
-        await USER.send(CreateGroupCall(
-            peer=(await USER.resolve_peer(chat_id)),
+        await user.send(CreateGroupCall(
+            peer=(await user.resolve_peer(chat_id)),
             random_id=randint(10000, 999999999)
         )
         )
