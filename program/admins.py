@@ -160,8 +160,8 @@ async def startvc(client, m: Message):
             random_id=randint(10000, 999999999)
         )
         )
-        await m.reply("**Voice chat started!**")
+        
     except Exception:
         await m.reply(
-            "**Error:** Add userbot as admin of your group with permission **Can manage voice chat**"
+            "**Error:** My Brain Error `Gib Can manage voice chat` Permission"
         )
