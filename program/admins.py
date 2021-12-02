@@ -151,7 +151,7 @@ async def change_volume(client, m: Message):
         await m.reply("❌ **Nothing is Streaming!**")
 
 @Client.on_message(filters.command(["startvc",
-                                    "startvc@{USERNAME_BOT"]) & public_filters)
+                                    "startvc@{USERNAME_BOT"]) & other_filters)
 async def startvc(client, message):
     chat_id = message.chat.id
     try:
