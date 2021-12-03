@@ -262,7 +262,7 @@ async def vsong(client, message):
         file_name,
         duration=int(ytdl_data["duration"]),
         thumb=preview,
-        progress=progress
+        progress=progress,
         caption=ytdl_data["title"],
     )
     try:
