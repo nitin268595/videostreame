@@ -258,13 +258,13 @@ async def vsong(client, message):
     preview = wget.download(thumbnail)
     start_time = time.time()
     await msg.edit("📤 `Uploading...`")
+    await msg.edit(progress=progress, progress_args=("**Trying to Upload Now!** \n", msg, start_time)
+       
     await message.reply_video(
         file_name,
         duration=int(ytdl_data["duration"]),
         thumb=preview,
-        caption=ytdl_data["title"],
-        progress=progress,
-        progress_args=("**Trying to Upload Now!** \n", msg, start_time),
+        caption=ytdl_data["title"],e)
     )
     try:
         os.remove(file_name)
