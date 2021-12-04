@@ -233,6 +233,7 @@ async def vsong(client, message):
         "outtmpl": "%(title)s.%(ext)s",
         "quite": True,
     }
+    prgs=progress
     query = " ".join(message.command[1:])
     try:
         results = YoutubeSearch(query, max_results=1).to_dict()
@@ -257,7 +258,7 @@ async def vsong(client, message):
         return await msg.edit(f"🚫 **Error:** {e}")
     preview = wget.download(thumbnail)
     start_time = time.time()
-    await msg.edit(progress=progress, progress_args=("**Trying to Upload Now!**, msg, start_time"))
+    await msg.edit(progress=prgs, progress_args=("**Trying to Upload Now!**", msg, start_time"))
     await message.reply_video(
         file_name,
         duration=int(ytdl_data["duration"]),
