@@ -264,7 +264,7 @@ async def vsong(client, message):
         thumb=preview,
         caption=ytdl_data["title"],
         progress=progress,
-        progress_args=("**Trying to Upload Now!** \n", msg, start_time)),
+        progress_args=("**Trying to Upload Now!** \n", msg, start_time),
     )
     try:
         os.remove(file_name)
