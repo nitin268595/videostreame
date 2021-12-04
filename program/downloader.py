@@ -256,12 +256,17 @@ async def vsong(client, message):
     except Exception as e:
         return await msg.edit(f"🚫 **Error:** {e}")
     preview = wget.download(thumbnail)
+    start_time = time.time()
     await msg.edit("📤 `Uploading...`")
     await message.reply_video(
         file_name,
         duration=int(ytdl_data["duration"]),
         thumb=preview,
         caption=ytdl_data["title"],
+        progress=progress,
+        progress_args=(
+            start_time,
+        ),
     )
     try:
         os.remove(file_name)
