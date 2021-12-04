@@ -258,7 +258,7 @@ async def vsong(client, message):
     preview = wget.download(thumbnail)
     start_time = time.time()
     await msg.edit("📤 `Uploading...`")
-    await msg.edit(progress=progress, progress_args=("**Trying to Upload Now!** \n", msg, start_time)
+    await msg.edit(progress=progress, progress_args=("**Trying to Upload Now!** \n, msg, start_time)
        
     await message.reply_video(
         file_name,
