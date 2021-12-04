@@ -262,7 +262,7 @@ async def vsong(client, message):
         file_name,
         duration=int(ytdl_data["duration"]),
         thumb=preview,
-        caption=ytdl_data["title"],e)
+        caption=ytdl_data["title"],
     )
     try:
         os.remove(file_name)
