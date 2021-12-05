@@ -4,7 +4,7 @@
 
 import asyncio
 import re
-from downloader import progress
+from program.downloader import progress
 from config import ASSISTANT_NAME, BOT_USERNAME, IMG_4, IMG_5
 from driver.decorators import sudo_users_only
 from driver.filters import command, other_filters
