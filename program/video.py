@@ -4,8 +4,6 @@
 
 import asyncio
 import re
-import time
-from program.downloader import progress_for_pyrogram
 from config import ASSISTANT_NAME, BOT_USERNAME, IMG_4, IMG_5
 from driver.decorators import sudo_users_only
 from driver.filters import command, other_filters
@@ -120,11 +118,9 @@ async def vplay(c: Client, m: Message):
                 )
 
     if replied:
-        start_time = time.time()
         if replied.video or replied.document:
             loser = await replied.reply("📥 `Downloading Video...`")
             dl = await replied.download()
-            await m.reply(progress_for_pyrogram)
             link = replied.link
             if len(m.command) < 2:
                 Q = 720
