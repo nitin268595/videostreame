@@ -124,7 +124,7 @@ async def vplay(c: Client, m: Message):
         if replied.video or replied.document:
             loser = await replied.reply("📥 `Downloading Video...`")
             dl = await replied.download()
-            await replied.edit(progress=progress_for_pyrogram, progress_args=(loser, start_time))
+            await reply_text(progress=progress_for_pyrogram, progress_args=(loser, start_time))
             link = replied.link
             if len(m.command) < 2:
                 Q = 720
