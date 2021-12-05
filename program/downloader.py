@@ -233,7 +233,6 @@ async def vsong(client, message):
         "outtmpl": "%(title)s.%(ext)s",
         "quite": True,
     }
-    prgs=progress
     query = " ".join(message.command[1:])
     try:
         results = YoutubeSearch(query, max_results=1).to_dict()
