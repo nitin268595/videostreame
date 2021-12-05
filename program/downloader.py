@@ -99,7 +99,7 @@ def get_text(message: Message) -> [None, str]:
         return None
 
 
-async def progress(current, total, message, start, type_of_ps, file_name=None):
+async def progress_for_pyrogram(current, total, message, start, type_of_ps, file_name=None):
     now = time.time()
     diff = now - start
     if round(diff % 10.00) == 0 or current == total:
