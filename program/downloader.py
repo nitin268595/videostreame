@@ -254,18 +254,3 @@ async def vsong(client, message):
         os.remove(file_name)
         await msg.delete()
 
-@Client.on_message(command(["lyric", f"lyric@{bn}"]))
-async def lyrics(_, message):
-    try:
-        if len(message.command) < 2:
-            await message.reply_text("❗ **Give a Lyric Name!**")
-            return
-        query = message.text.split(None, 1)[1]
-        rep = await message.reply_text("🔎 `Searching Lyrics...`")
-        resp = requests.get(
-            f"https://api-tede.herokuapp.com/api/lirik?l={query}"
-        ).json()
-        result = f"{resp['data']}"
-        await rep.edit(result)
-    except Exception:
-        await rep.edit("❌ **Lyrics Not Found!**\n\n» `Please Give A Valid Song Name`")
