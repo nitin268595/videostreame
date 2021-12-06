@@ -246,7 +246,7 @@ async def vsong(client, message):
     start_time = time.time()
     await message.download(
         file_name,
-        duration=int(ytdl_data["duration"]),
+        
         thumb=preview,
         caption=ytdl_data["title"],
         progress=progress_bar, 
