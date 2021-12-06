@@ -225,7 +225,7 @@ def uploadProgress(current, total, message):
         f"Uploading -\n"
         f"`{current}/{total}` **Bytes**\n"
         f"Progress - {current * 100 / total:.1f}%✅",
-        parse_mode=ParseMode.MARKDOWN,
+        parse_mode="md",
     )
 
 
@@ -268,7 +268,8 @@ async def vsong(client, message):
     infoMessageUpload = await msg.edit(
             message.chat.id,
             "Uploading - 0%",
-        )
+            reply_to_message_id=message.message_id,
+    )
     await msg.edit("`📤 Uploading...`")
     await message.reply_video(
         file_name,
