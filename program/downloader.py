@@ -217,17 +217,7 @@ def time_to_seconds(times):
         x in enumerate(
             reversed(
                 stringt.split(":"))))
-  
-def uploadProgress(current, total, message):
-    client.edit_message_text(
-        message.chat.id,
-        message.message_id,
-        f"Uploading -\n"
-        f"`{current}/{total}` **Bytes**\n"
-        f"Progress - {current * 100 / total:.1f}%✅",
-        parse_mode="md",
-    )
-
+ 
 
 @Client.on_message(
     command(["vsong", f"vsong@{bn}", "video", f"video@{bn}"]) & ~filters.edited
@@ -265,19 +255,12 @@ async def vsong(client, message):
     except Exception as e:
         return await msg.edit(f"🚫 **Error:** {e}")
     preview = wget.download(thumbnail)
-    infoMessageUpload = client.send_message(
-            message.chat.id,
-            "Uploading - 0%",
-            reply_to_message_id=message.message_id,
-    )
     await msg.edit("`📤 Uploading...`")
     await message.reply_video(
         file_name,
         duration=int(ytdl_data["duration"]),
         thumb=preview,
         caption=ytdl_data["title"],
-        progress=uploadProgress,
-        progress_args=(infoMessageUpload,),
     )
     try:
         os.remove(file_name)
