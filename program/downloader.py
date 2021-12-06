@@ -265,7 +265,7 @@ async def vsong(client, message):
     except Exception as e:
         return await msg.edit(f"🚫 **Error:** {e}")
     preview = wget.download(thumbnail)
-    infoMessageUpload = await msg.edit(
+    infoMessageUpload = app.send_message(
             message.chat.id,
             "Uploading - 0%",
             reply_to_message_id=message.message_id,
