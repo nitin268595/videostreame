@@ -244,7 +244,7 @@ async def vsong(client, message):
         return await msg.edit(f"🚫 **Error:** {e}")
     preview = wget.download(thumbnail)
     start_time = time.time()
-    await m.download(
+    await message.download(
         file_name,
         duration=int(ytdl_data["duration"]),
         thumb=preview,
