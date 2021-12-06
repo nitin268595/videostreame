@@ -235,20 +235,22 @@ async def vsong(client, message):
         print(e)
     try:
         msg = await message.reply_text("Downloading")
-        start_time = time.time()
+        
         with YoutubeDL(ydl_opts) as ytdl:
             ytdl_data = ytdl.extract_info(link, download=True)
             file_name = ytdl.prepare_filename(ytdl_data)
-            progress=progress_bar, progress_args=("Downloading:",start_time, msg)
+            
     except Exception as e:
         return await msg.edit(f"🚫 **Error:** {e}")
     preview = wget.download(thumbnail)
-    
-    await message.reply_video(
+    start_time = time.time()
+    await m.download(
         file_name,
         duration=int(ytdl_data["duration"]),
         thumb=preview,
         caption=ytdl_data["title"],
+        progress=progress_bar, 
+        progress_args=("Downloading:",start_time, msg),
     )
     try:
         os.remove(file_name)
