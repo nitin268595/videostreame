@@ -8,7 +8,6 @@ import os
 import time
 from random import randint
 from urllib.parse import urlparse
-from telegram import ParseMode
 import aiofiles
 import aiohttp
 import requests
@@ -226,7 +225,7 @@ def uploadProgress(current, total, message):
         f"Uploading -\n"
         f"`{current}/{total}` **Bytes**\n"
         f"Progress - {current * 100 / total:.1f}%✅",
-        parse_mode="md",
+        parse_mode=ParseMode.MARKDOWN,
     )
 
 
