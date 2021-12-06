@@ -253,4 +253,5 @@ async def vsong(client, message):
     try:
         os.remove(file_name)
         await msg.delete()
-
+    except Exception as e:
+        print(e)
