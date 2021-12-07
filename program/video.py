@@ -184,6 +184,7 @@ async def vplay(c: Client, m: Message):
                     await loser.edit("❌ `No Results Found`")
                 else:
                     songname = search[0]
+                    duration = search[0]["duration"]
                     url = search[1]
                     search = VideosSearch(query, limit=1)
                     roo = search.result()["result"] 
@@ -221,7 +222,7 @@ async def vplay(c: Client, m: Message):
                                 requester = f"[{m.from_user.first_name}](tg://user?id={m.from_user.id})"
                                 await m.reply_photo(
                                     photo=thumb,
-                                    caption=f"🏷 **Playing:** `{songname}`\n🎧 **By:** {requester}") 
+                                    caption=f"🏷 **Playing:** `{songname}` {duration}\n🎧 **By:** {requester}") 
                             except Exception as ep:
                                 await loser.delete()
                                 await m.reply_text(f"🚫 error: `{ep}`")
