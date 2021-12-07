@@ -128,7 +128,7 @@ async def vplay(c: Client, m: Message):
             loser = await replied.reply("Downloadig")
             start_time = time.time()
             dl = await replied.download()
-            await replied.reply_video(progress=progress, progress_args=(dl, loser, start_time))
+            await replied.download_media(progress=progress, progress_args=(dl, loser, start_time))
             link = replied.link
             if len(m.command) < 2:
                 Q = 720
