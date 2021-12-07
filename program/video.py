@@ -122,13 +122,13 @@ async def vplay(c: Client, m: Message):
                 return await m.reply_text(
                     f"❌ **userbot failed to join**\n\n**reason**: `{e}`"
                 )
-
+    start_time = time.time()
     if replied:
         if replied.video or replied.document:
             loser = await replied.reply("Downloadig")
-            start_time = time.time()
-            dl = await replied.download()
-            await reply_video(progress=progress_bar, progress_args=(dl, loser, start_time))
+            
+            dl = await replied.download(progress=progress_bar) 
+            
             link = replied.link
             if len(m.command) < 2:
                 Q = 720
