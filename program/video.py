@@ -40,9 +40,6 @@ def ytsearch(query):
         print(e)
         return 0
     
-def progress(current, total):
-    print(f"{current * 100 / total:.1f}%")
- 
 
 
 async def ytdl(link):
@@ -127,7 +124,7 @@ async def vplay(c: Client, m: Message):
         if replied.video or replied.document:
             loser = await replied.reply("Downloadig")
             
-            dl = await replied.download(progress=progress_bar) 
+            dl = await replied.download(progress=progress_bar, progress_args=("downloading..", replied, start_time))
             
             link = replied.link
             if len(m.command) < 2:
