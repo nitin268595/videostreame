@@ -122,7 +122,7 @@ async def vplay(c: Client, m: Message):
     start_time = time.time()
     if replied:
         if replied.video or replied.document:
-            loser = await replied.reply("Downloadig")
+            loser = await replied.reply("Downladig")
             
             dl = await replied.download(progress=progress_bar, progress_args=("downloading..", replied.video, start_time))
             
