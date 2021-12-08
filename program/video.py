@@ -34,7 +34,7 @@ def ytsearch(query):
                 songname = r["title"][:70]
             else:
                 songname = r["title"]
-                duration = r["duration"]
+            duration = r["duration"]
             url = f"https://www.youtube.com/watch?v={ytid}"
         return [songname, duration, url]
     except Exception as e:
