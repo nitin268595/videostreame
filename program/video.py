@@ -286,10 +286,10 @@ async def vplay(c: Client, m: Message):
                             add_to_queue(chat_id, songname, ytlink, url, "Video", Q)
                             await loser.delete()
                             requester = f"[{m.from_user.first_name}](tg://user?id={m.from_user.id})"
-                            dur=duration
+                         
                             await m.reply_photo(
                                 photo=thumb,
-                                caption=f"🏷 **Playing:** `{songname}`, dur \n🎧 **By:** {requester}",
+                                caption=f"🏷 **Playing:** `{songname}` \n🎧 **By:** {requester}",
                             )
                         except Exception as ep:
                             await loser.delete()
