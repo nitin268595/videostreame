@@ -190,8 +190,8 @@ async def vplay(c: Client, m: Message):
                 else:
                     songname = search[0]
                     url = search[1]
-                    duration = search[0]
                     search = VideosSearch(query, limit=1)
+                    duration = search[0]
                     roo = search.result()["result"] 
                     orr = roo[0] 
                     thumbid = orr["thumbnails"][0]["url"] 
@@ -227,7 +227,7 @@ async def vplay(c: Client, m: Message):
                                 add_to_queue(chat_id, songname, ytlink, url, "Video", Q)
                                 await loser.delete()
                                 requester = f"[{m.from_user.first_name}](tg://user?id={m.from_user.id})"
-                                
+                               
                                 await m.reply_photo(
                                     photo=thumb,
                                     caption=f"🏷 **Playing:** `{songname}`\n time: {duration} \n🎧 **By:** {requester}") 
