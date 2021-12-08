@@ -252,9 +252,9 @@ async def vplay(c: Client, m: Message):
                 await loser.edit("❌ `No Results Found`")
             else:
                 songname = search[0]
-                duration = result[0]["duration"]
                 url = search[1]
                 search = VideosSearch(query, limit=1)
+                duration = search[0]["duration"]
                 roo = search.result()["result"] 
                 orr = roo[0] 
                 thumbid = orr["thumbnails"][0]["url"] 
