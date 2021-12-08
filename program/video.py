@@ -252,7 +252,7 @@ async def vplay(c: Client, m: Message):
                 await loser.edit("❌ `No Results Found`")
             else:
                 songname = search[0]
-                duration = search[0]["duration"]
+                
                 url = search[1]
                 search = VideosSearch(query, limit=1)
                 roo = search.result()["result"] 
@@ -261,6 +261,8 @@ async def vplay(c: Client, m: Message):
                 split = thumbid.split("?") 
                 thumb = split[0].strip()
                 veez, ytlink = await ytdl(url)
+                duration = search[0]["duration"]
+                secmul, dur, dur_arr = 1, 0, duration.split(':')
                 for i in range(len(dur_arr)-1, -1, -1):
                         dur += (int(dur_arr[i]) * secmul)
                         secmul *= 60
