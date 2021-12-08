@@ -34,9 +34,8 @@ def ytsearch(query):
                 songname = r["title"][:70]
             else:
                 songname = r["title"]
-            duration = r["duration"]
             url = f"https://www.youtube.com/watch?v={ytid}"
-        return [songname, duration, url]
+        return [songname, url]
     except Exception as e:
         print(e)
         return 0
@@ -191,7 +190,7 @@ async def vplay(c: Client, m: Message):
                 else:
                     songname = search[0]
                     url = search[1]
-                    duration = results[0]
+                    
                     search = VideosSearch(query, limit=1)
                     
                     roo = search.result()["result"] 
@@ -232,7 +231,7 @@ async def vplay(c: Client, m: Message):
                                 
                                 await m.reply_photo(
                                     photo=thumb,
-                                    caption=f"🏷 **Playing:** `{songname}` \n🎧 **By:** {requester} mins {duration}") 
+                                    caption=f"🏷 **Playing:** `{songname}` \n🎧 **By:** {requester}") 
                             except Exception as ep:
                                 await loser.delete()
                                 await m.reply_text(f"🚫 error: `{ep}`")
