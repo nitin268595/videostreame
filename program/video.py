@@ -190,13 +190,14 @@ async def vplay(c: Client, m: Message):
                 else:
                     songname = search[0]
                     url = search[1]
+                    duration = search[0]["duration"]
                     search = VideosSearch(query, limit=1)
                     roo = search.result()["result"] 
                     orr = roo[0] 
                     thumbid = orr["thumbnails"][0]["url"] 
                     split = thumbid.split("?") 
                     thumb = split[0].strip()
-                    duration = search[0]["duration"]
+                    
                     veez, ytlink = await ytdl(url)
                     if veez == 0:
                         await loser.edit(f"❌ yt-dl issues detected\n\n» `{ytlink}`")
@@ -257,12 +258,8 @@ async def vplay(c: Client, m: Message):
                 split = thumbid.split("?") 
                 thumb = split[0].strip()
                 veez, ytlink = await ytdl(url)
-                duration = search[0]["duration"]
-                secmul, dur, dur_arr = 1, 0, duration.split(':')
-                for i in range(len(dur_arr)-1, -1, -1):
-                        dur += (int(dur_arr[i]) * secmul)
-                        secmul *= 60
-                print(dur)
+                
+                
                 if veez == 0:
                     await loser.edit(f"❌ yt-dl issues detected\n\n» `{ytlink}`")
                 else:
