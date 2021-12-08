@@ -190,15 +190,16 @@ async def vplay(c: Client, m: Message):
                 else:
                     songname = search[0]
                     url = search[1]
-                    duation = search[0]["duration"]
+                    duration = search[0]["duration"]
                     search = VideosSearch(query, limit=1)
                     roo = search.result()["result"] 
                     orr = roo[0] 
                     thumbid = orr["thumbnails"][0]["url"] 
                     split = thumbid.split("?") 
                     thumb = split[0].strip()
-                    duration=int(ytdl_data["duration"])
+                    
                     veez, ytlink = await ytdl(url)
+                    duration=int(ytdl_data["duration"])
                     if veez == 0:
                         await loser.edit(f"❌ yt-dl issues detected\n\n» `{ytlink}`")
                     else:
@@ -229,7 +230,7 @@ async def vplay(c: Client, m: Message):
                                 
                                 await m.reply_photo(
                                     photo=thumb,
-                                    caption=f"🏷 **Playing:** `{songname}`, {duration}, {duation} \n🎧 **By:** {requester}") 
+                                    caption=f"🏷 **Playing:** `{songname}`, {duration} \n🎧 **By:** {requester}") 
                             except Exception as ep:
                                 await loser.delete()
                                 await m.reply_text(f"🚫 error: `{ep}`")
