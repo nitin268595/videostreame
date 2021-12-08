@@ -235,7 +235,7 @@ async def vplay(c: Client, m: Message):
                                 await loser.delete()
                                 await m.reply_text(f"🚫 error: `{ep}`")
 
-    else:
+    else: 
         if len(m.command) < 2:
             await m.reply(
                 "❗ __Reply Or Give Something To Play__"
@@ -250,7 +250,7 @@ async def vplay(c: Client, m: Message):
                 await loser.edit("❌ `No Results Found`")
             else:
                 songname = search[0]
-                
+                duration = round(search["duration"] / 60)
                 url = search[1]
                 search = VideosSearch(query, limit=1)
                 roo = search.result()["result"] 
@@ -289,7 +289,7 @@ async def vplay(c: Client, m: Message):
                          
                             await m.reply_photo(
                                 photo=thumb,
-                                caption=f"🏷 **Playing:** `{songname}` \n🎧 **By:** {requester}",
+                                caption=f"🏷 **Playing:** `{songname}` \n🎧 **By:** {requester} mins {duration}",
                             )
                         except Exception as ep:
                             await loser.delete()
