@@ -34,6 +34,7 @@ def ytsearch(query):
                 songname = r["title"][:70]
             else:
                 songname = r["title"]
+                duration = r["duration"]
             url = f"https://www.youtube.com/watch?v={ytid}"
         return [songname, url]
     except Exception as e:
@@ -190,8 +191,9 @@ async def vplay(c: Client, m: Message):
                 else:
                     songname = search[0]
                     url = search[1]
-                    search = VideosSearch(query, limit=1)
                     duration = results[0]
+                    search = VideosSearch(query, limit=1)
+                    
                     roo = search.result()["result"] 
                     orr = roo[0] 
                     thumbid = orr["thumbnails"][0]["url"] 
