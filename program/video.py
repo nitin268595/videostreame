@@ -191,7 +191,7 @@ async def vplay(c: Client, m: Message):
                     songname = search[0]
                     url = search[1]
                     search = VideosSearch(query, limit=1)
-                    duration = search[0]
+                    duration = results[0]
                     roo = search.result()["result"] 
                     orr = roo[0] 
                     thumbid = orr["thumbnails"][0]["url"] 
