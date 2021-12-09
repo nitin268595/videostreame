@@ -245,6 +245,7 @@ async def vplay(c: Client, m: Message):
                 search = VideosSearch(query, limit=1)
                 roo = search.result()["result"] 
                 orr = roo[0] 
+                duration = roo[0]["duration"]
                 thumbid = orr["thumbnails"][0]["url"] 
                 split = thumbid.split("?") 
                 thumb = split[0].strip()
@@ -276,7 +277,7 @@ async def vplay(c: Client, m: Message):
                             requester = f"[{m.from_user.first_name}](tg://user?id={m.from_user.id})"
                             await m.reply_photo(
                                 photo=thumb,
-                                caption=f"🏷 **Playing:** `{songname}`\n🎧 **By:** {requester}",
+                                caption=f"🏷 **Playing:** `{songname}`\n ⏰ Duration:* {duration}\n🎧 **By:** {requester}",
                             )
                         except Exception as ep:
                             await loser.delete()
