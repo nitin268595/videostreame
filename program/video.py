@@ -71,7 +71,7 @@ async def vplay(c: Client, m: Message):
     a = await c.get_chat_member(chat_id, aing.id)
     if a.status != "administrator":
         await m.reply_text(
-            f"💡 To use me, I need to be an **Administrator** with the following permissions:\n\n» ❌ __Delete messages__\n» ❌ __Restrict users__\n» ❌ __Add users__\n» ❌ __Manage video chat__\n\nData is **updated** automatically after you **promote me**"
+            f"➡ **Chicha, Make Me Admin With Following permissions**:\n\n ❌ __Delete messages__\n ❌ __Restrict users__\n ❌ __Add users__\n ❌ __Manage video chat__\n\n➥ **You Do What I Said I'll Verify myself**"
         )
         return
     if not a.can_manage_voice_chats:
@@ -131,7 +131,7 @@ async def vplay(c: Client, m: Message):
                 else:
                     Q = 720
                     await loser.edit(
-                        "» __only 720, 480, 360 allowed__ \n💡 `Now Streaming Video in 720p`"
+                        "🚫 __only 720, 480, 360 allowed__ \n➥ `Now Playing Video in 720p`"
                     )
             try:
                 if replied.video:
@@ -145,7 +145,7 @@ async def vplay(c: Client, m: Message):
                 pos = add_to_queue(chat_id, songname, dl, link, "Video", Q)
                 await loser.delete()
                 requester = f"[{m.from_user.first_name}](tg://user?id={m.from_user.id})"
-                await m.reply_text(f"🎼 **Added in Queue at » `#{pos}` **\n🏷 **Title:** `{songname}`")
+                await m.reply_text(f"➥ **Added in Queue at `#{pos}` **\n➥ **Title:** `{songname}`")
             else:
                 if Q == 720:
                     amaze = HighQualityVideo()
@@ -167,7 +167,7 @@ async def vplay(c: Client, m: Message):
                 requester = f"[{m.from_user.first_name}](tg://user?id={m.from_user.id})"
                 await m.reply_photo(
                     photo=f"{IMG_5}",
-                    caption=f"🏷 **Playing:** `{songname}`\n**🎧 By:** {requester}",
+                    caption=f"➥ **Playing:** `{songname}`\n**➥ By:** {requester}",
                     )
         else:
             if len(m.command) < 2:
@@ -193,7 +193,7 @@ async def vplay(c: Client, m: Message):
                     thumb = split[0].strip()
                     veez, ytlink = await ytdl(url)
                     if veez == 0:
-                        await loser.edit(f"❌ yt-dl issues detected\n\n» `{ytlink}`")
+                        await loser.edit(f"❌ yt-dl issue \n\n➥ `{ytlink}`")
                     else:
                         if chat_id in QUEUE:
                             pos = add_to_queue(
@@ -202,7 +202,7 @@ async def vplay(c: Client, m: Message):
                             await loser.delete()
                             await m.reply_photo(
                                 photo=thumb,
-                                caption=f"**🎼 Added In Queue at »** `#{pos}`\n🏷 **Title:** `{songname}`",
+                                caption=f"**➥ Added In Queue at ** `#{pos}`\n➥ **Title:** `{songname}`",
                             )
                         else:
                             try:
@@ -221,7 +221,7 @@ async def vplay(c: Client, m: Message):
                                 requester = f"[{m.from_user.first_name}](tg://user?id={m.from_user.id})"
                                 await m.reply_photo(
                                     photo=thumb,
-                                    caption=f"🏷 **Playing:** `{songname}`\n🎧 **By:** {requester}") 
+                                    caption=f"➥ **Playing:** `{songname}`\n➥ **By:** {requester}") 
                             except Exception as ep:
                                 await loser.delete()
                                 await m.reply_text(f"🚫 error: `{ep}`")
@@ -251,14 +251,14 @@ async def vplay(c: Client, m: Message):
                 thumb = split[0].strip()
                 veez, ytlink = await ytdl(url)
                 if veez == 0:
-                    await loser.edit(f"❌ yt-dl issues detected\n\n» `{ytlink}`")
+                    await loser.edit(f"❌ yt-dl issues \n\n➥ `{ytlink}`")
                 else:
                     if chat_id in QUEUE:
                         pos = add_to_queue(chat_id, songname, ytlink, url, "Video", Q)
                         await loser.delete()
                         await m.reply_photo(
                             photo=thumb,
-                            caption=f"🎼 **Added in Queue At »** #`{pos}`\n🏷 **Title:** `{songname}`",
+                            caption=f"➥ **Added in Queue At »** `#{pos}`\n➥ **Title:** `{songname}`",
                         )
                     else:
                         try:
@@ -277,7 +277,7 @@ async def vplay(c: Client, m: Message):
                             requester = f"[{m.from_user.first_name}](tg://user?id={m.from_user.id})"
                             await m.reply_photo(
                                 photo=thumb,
-                                caption=f"➥ **Playing:** `{songname}`\n ➥ **Duration:** {duration}\n➥ **By:** {requester}",
+                                caption=f"➥ **Playing:** `{songname}`\n➥ **Duration:** `{duration}`\n➥ **By:** {requester}",
                             )
                         except Exception as ep:
                             await loser.delete()
@@ -299,7 +299,7 @@ async def vstream(c: Client, m: Message):
     a = await c.get_chat_member(chat_id, aing.id)
     if a.status != "administrator":
         await m.reply_text(
-            f"💡 To use me, I need to be an **Administrator** with the following **permissions**:\n\n» ❌ __Delete messages__\n» ❌ __Restrict users__\n» ❌ __Add users__\n» ❌ __Manage video chat__\n\nData is **updated** automatically after you **promote me**"
+            f"➡ **Chicha Make Me Admin With Following Permission:\n\n» ❌ __Delete messages__\n ❌ __Restrict users__\n ❌ __Add users__\n ❌ __Manage video chat__\n\n➥ **You Do What I Said I'll Verify Myself**"
         )
         return
     if not a.can_manage_voice_chats:
@@ -361,7 +361,7 @@ async def vstream(c: Client, m: Message):
             else:
                 Q = 720
                 await m.reply(
-                    "» __only 720, 480, 360 allowed__ \n💡 **now streaming video in 720p**"
+                    "🚫 __only 720, 480, 360 allowed__ \n➥ **Now Playing Video in 720p**"
                 )
             loser = await m.reply("🔄 `Processing Stream...`")
         else:
@@ -388,7 +388,7 @@ async def vstream(c: Client, m: Message):
             if chat_id in QUEUE:
                 pos = add_to_queue(chat_id, "Live Stream", livelink, link, "Video", Q)
                 await loser.delete()
-                await m.reply_text(f"🎼 **Added This Live in Queue At** » #`{pos}`")  
+                await m.reply_text(f"➥ **Added This Live in Queue At** `#{pos}`")  
             else:
                 if Q == 720:
                     amaze = HighQualityVideo()
