@@ -277,7 +277,7 @@ async def vplay(c: Client, m: Message):
                             requester = f"[{m.from_user.first_name}](tg://user?id={m.from_user.id})"
                             await m.reply_photo(
                                 photo=thumb,
-                                caption=f"🏷 **Playing:** `{songname}`\n ⏰ Duration:* {duration}\n🎧 **By:** {requester}",
+                                caption=f"➥ **Playing:** `{songname}`\n ➥ **Duration:** {duration}\n➥ **By:** {requester}",
                             )
                         except Exception as ep:
                             await loser.delete()
