@@ -65,7 +65,7 @@ async def vplay(c: Client, m: Message):
     replied = m.reply_to_message
     chat_id = m.chat.id
     chat_title = m.chat.title
-    
+    file_id = m.reply_to_message_id
     if m.sender_chat:
         return await m.reply_text("you're an __Anonymous Admin__ !\n\n» revert back to user account from admin rights.")
     try:
@@ -125,7 +125,7 @@ async def vplay(c: Client, m: Message):
     if replied:
         if replied.video:
             loser = await replied.reply("Downldng") 
-            dl = await replied.download(progress=progress, progress_args=("Downloading:",loser,reply_to_message_id, start_time))
+            dl = await replied.download(progress=progress, progress_args=("Downloading:",loser, file_id start_time))
             
             link = replied.link
             if len(m.command) < 2:
