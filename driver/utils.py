@@ -1,13 +1,17 @@
+import os
+import asyncio
 from driver.veez import call_py
 from pytgcalls.types import Update
-from driver.queues import QUEUE, clear_queue, get_queue, pop_an_item
 from pytgcalls.types.input_stream import AudioPiped, AudioVideoPiped
+from driver.queues import QUEUE, clear_queue, get_queue, pop_an_item
 from pytgcalls.types.input_stream.quality import (
     HighQualityAudio,
     HighQualityVideo,
     LowQualityVideo,
     MediumQualityVideo,
 )
+from pyrogram.types import Message
+from pyrogram import Client, filters
 from pytgcalls.types.stream import StreamAudioEnded, StreamVideoEnded
 
 
@@ -62,9 +66,46 @@ async def skip_item(chat_id, h):
         return 0
 
 
+@call_py.on_kicked()
+async def kicked_handler(_, chat_id: int):
+    if chat_id in QUEUE:
+        clear_queue(chat_id)
+
+
+@call_py.on_closed_voice_chat()
+async def closed_voice_chat_handler(_, chat_id: int):
+    if chat_id in QUEUE:
+        clear_queue(chat_id)
+
+
+@call_py.on_left()
+async def left_handler(_, chat_id: int):
+    if chat_id in QUEUE:
+        clear_queue(chat_id)
+
+
 @call_py.on_stream_end()
-async def on_end_handler(_, u: Update):
-    if isinstance(u, StreamAudioEnded) or isinstance(u, StreamVideoEnded):
+async def stream_end_handler(_, u: Update):
+    if isinstance(u, StreamAudioEnded):
         chat_id = u.chat_id
         print(chat_id)
-        await skip_current_song(chat_id)
+        op = await skip_current_song(chat_id)
+        if op==1:
+           await bot.send_message(chat_id, "**❗ Nothing in Waitlist** » `I am Leaving Vc`")
+        elif op==2:
+           await bot.send_message(chat_id, "❌ **My Brain Error Occurred** » `Clearing Waitlist & Leaving Vc`")
+        else:
+         await bot.send_message(chat_id, f"⏭ **Playing Next Track**\n\n➥ **Title:** [{op[0]}]({op[1]}) | `{op[2]}`", disable_web_page_preview=True)
+    else:
+       pass
+
+async def bash(cmd):
+    process = await asyncio.create_subprocess_shell(
+        cmd,
+        stdout=asyncio.subprocess.PIPE,
+        stderr=asyncio.subprocess.PIPE,
+    )
+    stdout, stderr = await process.communicate()
+    err = stderr.decode().strip()
+    out = stdout.decode().strip()
+    return out, err
