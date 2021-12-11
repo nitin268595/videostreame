@@ -59,6 +59,7 @@ async def ytdl(link):
 @Client.on_message(command(["vplay", f"vplay@{BOT_USERNAME}"]) & other_filters)
 @sudo_users_only
 async def vplay(c: Client, m: Message):
+    await m.delete()
     replied = m.reply_to_message
     chat_id = m.chat.id
     chat_title = m.chat.title
@@ -287,6 +288,7 @@ async def vplay(c: Client, m: Message):
 @Client.on_message(command(["vstream", f"vstream@{BOT_USERNAME}"]) & other_filters)
 @sudo_users_only
 async def vstream(c: Client, m: Message):
+    await m.delete()
     m.reply_to_message
     chat_id = m.chat.id
     chat_title = m.chat.title
