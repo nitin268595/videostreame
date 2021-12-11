@@ -107,9 +107,14 @@ async def vplay(c: Client, m: Message):
                 return
         else:
             try:
-                pope = await c.export_chat_invite_link(chat_id)
-                pepo = await c.revoke_chat_invite_link(chat_id, pope)
-                await user.join_chat(pepo.invite_link)
+                invitelink = await c.export_chat_invite_link(
+                    m.chat.id
+                )
+                if invitelink.startswith("https://t.me/+"):
+                    invitelink = invitelink.replace(
+                        "https://t.me/+", "https://t.me/joinchat/"
+                    )
+                await user.join_chat(invitelink)
             except UserAlreadyParticipant:
                 pass
             except Exception as e:
