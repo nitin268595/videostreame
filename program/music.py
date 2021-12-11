@@ -18,42 +18,32 @@ from pytgcalls.types.input_stream import AudioPiped
 from youtubesearchpython import VideosSearch
 
 
-def ytsearch(query):
+def ytsearch(query: str):
     try:
-        search = VideosSearch(query, limit=1)
-        for r in search.result()["result"]:
-            ytid = r["id"]
-            if len(r["title"]) > 34:
-                songname = r["title"][:70]
-            else:
-                songname = r["title"]
-            url = f"https://www.youtube.com/watch?v={ytid}"
-        return [songname, url]
+        search = VideosSearch(query, limit=1).result()
+        data = search["result"][0]
+        songname = data["title"]
+        url = data["link"]
+        duration = data["duration"]
+        thumbnail = f"https://i.ytimg.com/vi/{data['id']}/hqdefault.jpg"
+        return [songname, url, duration, thumbnail]
     except Exception as e:
         print(e)
         return 0
 
-
-async def ytdl(link):
-    proc = await asyncio.create_subprocess_exec(
-        "yt-dlp",
-        "-g",
-        "-f",
-        "bestaudio",
-        f"{link}",
-        stdout=asyncio.subprocess.PIPE,
-        stderr=asyncio.subprocess.PIPE,
-    )
-    stdout, stderr = await proc.communicate()
+    
+async def ytdl(format: str, link: str):
+    stdout, stderr = await bash(f'yt-dlp -g -f "{format}" {link}')
     if stdout:
-        return 1, stdout.decode().split("\n")[0]
-    else:
-        return 0, stderr.decode()
+        return 1, stdout.split("\n")[0]
+    return 0, stderr
+
 
 
 @Client.on_message(command(["play", f"play@{BOT_USERNAME}"]) & other_filters)
 @sudo_users_only
 async def play(c: Client, m: Message):
+    await m.delete()
     replied = m.reply_to_message
     chat_id = m.chat.id
     if m.sender_chat:
@@ -65,7 +55,7 @@ async def play(c: Client, m: Message):
     a = await c.get_chat_member(chat_id, aing.id)
     if a.status != "administrator":
         await m.reply_text(
-            f"💡 To use me, I need to be an **Administrator** with the following **permissions**:\n\n» ❌ __Delete messages__\n» ❌ __Restrict users__\n» ❌ __Add users__\n» ❌ __Manage video chat__\n\nData is **updated** automatically after you **promote me**"
+            f"➥ Chicha, Make Me Admin And Give Following Permission:\n\n» ❌ __Delete messages__\n» ❌ __Restrict users__\n» ❌ __Add users__\n» ❌ __Manage video chat__\n\n➥ **You Do What I Said I'll Verify Myself**"
         )
         return
     if not a.can_manage_voice_chats:
@@ -134,7 +124,7 @@ async def play(c: Client, m: Message):
             if chat_id in QUEUE:
                 pos = add_to_queue(chat_id, songname, dl, link, "Audio", 0)
                 await suhu.delete()
-                await m.reply_text(f"🎼 **Added in Queue at »`#{pos}`**\n 🏷 **Title:** `{songname}`") 
+                await m.reply_text(f"🎼 **Added in Queue at »`#{pos}`**\n➥ **Title:** `{songname}`")
             else:
                 await suhu.edit("🔄 **Joining Vc...**")
                 await call_py.join_group_call(
@@ -149,7 +139,7 @@ async def play(c: Client, m: Message):
                 requester = f"[{m.from_user.first_name}](tg://user?id={m.from_user.id})"
                 await m.reply_photo(
                     photo=f"{IMG_6}",
-                    caption=f"🏷 **Playing:** `{songname}`\n🎧 **By:** {requester}",
+                    caption=f"➥ **Playing:** `{songname}`\n➥ **By:** {requester}",
                 )
         else:
             if len(m.command) < 2:
@@ -165,13 +155,10 @@ async def play(c: Client, m: Message):
                 else:
                     songname = search[0]
                     url = search[1]
-                    search = VideosSearch(query, limit=1)
-                    roo = search.result()["result"] 
-                    orr = roo[0] 
-                    thumbid = orr["thumbnails"][0]["url"] 
-                    split = thumbid.split("?") 
-                    thumb = split[0].strip()
-                    veez, ytlink = await ytdl(url)
+                    duration = search[2]
+                    thumbnail = search[3]
+                    format = "bestaudio"
+                    veez, ytlink = await ytdl(format, url)
                     if veez == 0:
                         await suhu.edit(f"❌ yt-dl issues detected\n\n» `{ytlink}`")
                     else:
@@ -181,8 +168,8 @@ async def play(c: Client, m: Message):
                             )
                             await suhu.delete()
                             await m.reply_photo(
-                                photo=thumb,
-                                caption=f"🎼 **Added in Queue at »`#{pos}`**\n 🏷 **Title:** `{songname}`", 
+                                photo=thumbnail,
+                                caption=f"🎼 **Added in Queue at `#{pos}`**\n➥ **Title:** `{songname}`\n➥ **Duration:** `{duration}`",
                             )
                         else:
                             try:
@@ -198,8 +185,8 @@ async def play(c: Client, m: Message):
                                 await suhu.delete()
                                 requester = f"[{m.from_user.first_name}](tg://user?id={m.from_user.id})"
                                 await m.reply_photo(
-                                    photo=thumb,
-                                    caption=f"🏷 **Playing:** `{songname}`\n🎧 **By:** {requester}", 
+                                    photo=thumbnail,
+                                    caption=f"➥ **Playing:** `{songname}`\n➥ **Duration:** `{duration}`\n➥ **By:** {requester}",
                                 )
                             except Exception as ep:
                                 await suhu.delete()
@@ -219,13 +206,10 @@ async def play(c: Client, m: Message):
             else:
                 songname = search[0]
                 url = search[1]
-                search = VideosSearch(query, limit=1) 
-                roo = search.result()["result"] 
-                orr = roo[0] 
-                thumbid = orr["thumbnails"][0]["url"] 
-                split = thumbid.split("?") 
-                thumb = split[0].strip()
-                veez, ytlink = await ytdl(url)
+                duration = search[2]
+                thumbnail = search[3]
+                format = "bestaudio"
+                veez, ytlink = await ytdl(format, url)
                 if veez == 0:
                     await suhu.edit(f"❌ yt-dl issues detected\n\n» `{ytlink}`")
                 else:
@@ -233,8 +217,8 @@ async def play(c: Client, m: Message):
                         pos = add_to_queue(chat_id, songname, ytlink, url, "Audio", 0)
                         await suhu.delete()
                         await m.reply_photo(
-                            photo=thumb,
-                            caption=f"🎼 **Added in Queue at »`#{pos}`**\n🏷 **Title:** `{songname}`", 
+                            photo=thumbnail,
+                            caption=f"🎼 **Added in Queue at `#{pos}`**\n➥ **Title:** `{songname}`\n➥ **Duration:** `{duration}`", 
                         )
                     else:
                         try:
@@ -250,8 +234,8 @@ async def play(c: Client, m: Message):
                             await suhu.delete()
                             requester = f"[{m.from_user.first_name}](tg://user?id={m.from_user.id})"
                             await m.reply_photo(
-                                photo=thumb,
-                                caption=f"🏷 **Playing:** `{songname}`\n🎧 **By:** {requester}",
+                                photo=thumbnail,
+                                caption=f"➥ **Playing:** `{songname}`\n➥ **Duration:** `{duration}`\n➥ **By:** {requester}",
                             )
                         except Exception as ep:
                             await suhu.delete()
