@@ -54,6 +54,7 @@ async def ytdl(link):
 @Client.on_message(command(["play", f"play@{BOT_USERNAME}"]) & other_filters)
 @sudo_users_only
 async def play(c: Client, m: Message):
+    await m.delete()
     replied = m.reply_to_message
     chat_id = m.chat.id
     if m.sender_chat:
@@ -259,6 +260,7 @@ async def play(c: Client, m: Message):
 @Client.on_message(command(["stream", f"stream@{BOT_USERNAME}"]) & other_filters)
 @sudo_users_only
 async def stream(c: Client, m: Message):
+    await m.delete()
     chat_id = m.chat.id
     chat_title = m.chat.title
     if m.sender_chat:
