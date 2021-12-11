@@ -148,7 +148,7 @@ async def play(c: Client, m: Message):
                     "__❗Reply Or Gib Something To Play !__"
                 )
             else:
-                suhu = await m.reply("🔎 `Searching...`")
+                suhu = await m.reply("🔍 `Searching...`")
                 query = m.text.split(None, 1)[1]
                 search = ytsearch(query)
                 if search == 0:
@@ -199,7 +199,7 @@ async def play(c: Client, m: Message):
                 "__❗Reply Or Gib Something To Play !__"
             )
         else:
-            suhu = await m.reply("🔎 `Searching...`")
+            suhu = await m.reply("🔍 `Searching...`")
             query = m.text.split(None, 1)[1]
             search = ytsearch(query)
             if search == 0:
@@ -345,7 +345,7 @@ async def stream(c: Client, m: Message):
                     )
                     await m.reply_photo(
                         photo=f"{IMG_6}",
-                        caption=f"💡 **[Live Audio]({link}) Stream Started in {chat_title} !**\n🎧 **By:** {requester}", 
+                        caption=f"▶ **[Live Audio]({link}) Stream Started in {chat_title} !**\n🎧 **By:** {requester}", 
                     )
                 except Exception as ep:
                     await suhu.delete()
