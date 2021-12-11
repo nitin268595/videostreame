@@ -23,17 +23,15 @@ from pytgcalls.types.input_stream.quality import (
 from youtubesearchpython import VideosSearch
 
 
-def ytsearch(query):
+def ytsearch(query: str):
     try:
-        search = VideosSearch(query, limit=1)
-        for r in search.result()["result"]:
-            ytid = r["id"]
-            if len(r["title"]) > 34:
-                songname = r["title"][:70]
-            else:
-                songname = r["title"]
-            url = f"https://www.youtube.com/watch?v={ytid}"
-        return [songname, url]
+        search = VideosSearch(query, limit=1).result()
+        data = search["result"][0]
+        songname = data["title"]
+        url = data["link"]
+        duration = data["duration"]
+        thumbnail = f"https://i.ytimg.com/vi/{data['id']}/hqdefault.jpg"
+        return [songname, url, duration, thumbnail]
     except Exception as e:
         print(e)
         return 0
@@ -59,6 +57,7 @@ async def ytdl(link):
 @Client.on_message(command(["vplay", f"vplay@{BOT_USERNAME}"]) & other_filters)
 @sudo_users_only
 async def vplay(c: Client, m: Message):
+    await m.delete()
     replied = m.reply_to_message
     chat_id = m.chat.id
     chat_title = m.chat.title
@@ -180,7 +179,7 @@ async def vplay(c: Client, m: Message):
                     "❗ __Reply Or Give Something To Play__"
                 )
             else:
-                loser = await m.reply("🔎 `Searching...`")
+                loser = await c.send_message(chat_id, "🔎 `Searching...`")
                 query = m.text.split(None, 1)[1]
                 search = ytsearch(query)
                 Q = 720
@@ -190,12 +189,8 @@ async def vplay(c: Client, m: Message):
                 else:
                     songname = search[0]
                     url = search[1]
-                    search = VideosSearch(query, limit=1)
-                    roo = search.result()["result"] 
-                    orr = roo[0] 
-                    thumbid = orr["thumbnails"][0]["url"] 
-                    split = thumbid.split("?") 
-                    thumb = split[0].strip()
+                    duration = search[2]
+                    thumbnail = search[3]
                     veez, ytlink = await ytdl(url)
                     if veez == 0:
                         await loser.edit(f"❌ yt-dl issue \n\n➥ `{ytlink}`")
@@ -206,7 +201,7 @@ async def vplay(c: Client, m: Message):
                             )
                             await loser.delete()
                             await m.reply_photo(
-                                photo=thumb,
+                                photo=thumbnail,
                                 caption=f"**➥ Added In Queue at ** `#{pos}`\n➥ **Title:** `{songname}`",
                             )
                         else:
@@ -225,8 +220,8 @@ async def vplay(c: Client, m: Message):
                                 await loser.delete()
                                 requester = f"[{m.from_user.first_name}](tg://user?id={m.from_user.id})"
                                 await m.reply_photo(
-                                    photo=thumb,
-                                    caption=f"➥ **Playing:** `{songname}`\n➥ **By:** {requester}") 
+                                    photo=thumbnail,
+                                    caption=f"➥ **Playing:** `{songname}`\n➥ **Duration:** `{duration}`\n➥ **By:** {requester}") 
                             except Exception as ep:
                                 await loser.delete()
                                 await m.reply_text(f"🚫 error: `{ep}`")
@@ -237,7 +232,7 @@ async def vplay(c: Client, m: Message):
                 "❗ __Reply Or Give Something To Play__"
             )
         else:
-            loser = await m.reply("🔎 `Searching...`")
+            loser = await c.send_message(chat_id, "🔎 `Searching...`")
             query = m.text.split(None, 1)[1]
             search = ytsearch(query)
             Q = 720
@@ -247,13 +242,8 @@ async def vplay(c: Client, m: Message):
             else:
                 songname = search[0]
                 url = search[1]
-                search = VideosSearch(query, limit=1)
-                roo = search.result()["result"] 
-                orr = roo[0] 
-                duration = roo[0]["duration"]
-                thumbid = orr["thumbnails"][0]["url"] 
-                split = thumbid.split("?") 
-                thumb = split[0].strip()
+                duration = search[2]
+                thumbnail = search[3]
                 veez, ytlink = await ytdl(url)
                 if veez == 0:
                     await loser.edit(f"❌ yt-dl issues \n\n➥ `{ytlink}`")
@@ -262,7 +252,7 @@ async def vplay(c: Client, m: Message):
                         pos = add_to_queue(chat_id, songname, ytlink, url, "Video", Q)
                         await loser.delete()
                         await m.reply_photo(
-                            photo=thumb,
+                            photo=thumbnail,
                             caption=f"➥ **Added in Queue At »** `#{pos}`\n➥ **Title:** `{songname}`",
                         )
                     else:
@@ -281,7 +271,7 @@ async def vplay(c: Client, m: Message):
                             await loser.delete()
                             requester = f"[{m.from_user.first_name}](tg://user?id={m.from_user.id})"
                             await m.reply_photo(
-                                photo=thumb,
+                                photo=thumbnail,
                                 caption=f"➥ **Playing:** `{songname}`\n➥ **Duration:** `{duration}`\n➥ **By:** {requester}",
                             )
                         except Exception as ep:
@@ -292,7 +282,8 @@ async def vplay(c: Client, m: Message):
 @Client.on_message(command(["vstream", f"vstream@{BOT_USERNAME}"]) & other_filters)
 @sudo_users_only
 async def vstream(c: Client, m: Message):
-    m.reply_to_message
+    await m.delete()
+    replied = m.reply_to_message
     chat_id = m.chat.id
     chat_title = m.chat.title
     if m.sender_chat:
@@ -340,9 +331,14 @@ async def vstream(c: Client, m: Message):
                 return
         else:
             try:
-                pope = await c.export_chat_invite_link(chat_id)
-                pepo = await c.revoke_chat_invite_link(chat_id, pope)
-                await user.join_chat(pepo.invite_link)
+                invitelink = await c.export_chat_invite_link(
+                    m.chat.id
+                )
+                if invitelink.startswith("https://t.me/+"):
+                    invitelink = invitelink.replace(
+                        "https://t.me/+", "https://t.me/joinchat/"
+                    )
+                await user.join_chat(invitelink)
             except UserAlreadyParticipant:
                 pass
             except Exception as e:
