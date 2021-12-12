@@ -1,4 +1,4 @@
-from driver.veez import call_py
+from driver.veez import bot, call_py
 from pytgcalls.types import Update
 from driver.queues import QUEUE, clear_queue, get_queue, pop_an_item
 from pytgcalls.types.input_stream import AudioPiped, AudioVideoPiped
@@ -8,6 +8,7 @@ from pytgcalls.types.input_stream.quality import (
     LowQualityVideo,
     MediumQualityVideo,
 )
+from pyrogram.types import Message
 from pytgcalls.types.stream import StreamAudioEnded, StreamVideoEnded
 
 
@@ -63,8 +64,16 @@ async def skip_item(chat_id, h):
 
 
 @call_py.on_stream_end()
-async def on_end_handler(_, u: Update):
-    if isinstance(u, StreamAudioEnded) or isinstance(u, StreamVideoEnded):
+async def stream_end_handler(_, u: Update):
+    if isinstance(u, StreamAudioEnded):
         chat_id = u.chat_id
         print(chat_id)
-        await skip_current_song(chat_id)
+        op = await skip_current_song(chat_id)
+        if op==1:
+           await bot.send_message(chat_id, "**❗ Nothing in Queue to Play** » `I am Leaving Vc`")
+        elif op==2:
+           await bot.send_message(chat_id, "❌ **My Brain Error Occurred** » `Clearing Waitlist & Leaving Vc`")
+        else:
+         await bot.send_message(chat_id, f"⏭ **Playing Next Track**\n\n➥ **Title:** [{op[0]}]({op[1]}) | `{op[2]}`", disable_web_page_preview=True)
+    else:
+       pass
