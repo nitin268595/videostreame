@@ -225,7 +225,7 @@ def time_to_seconds(times):
 )
 @sudo_users_only
 async def vsong(client, message):
-    await m.delete()
+    await message.delete()
     ydl_opts = {
         "format": "best",
         "keepvideo": True,
