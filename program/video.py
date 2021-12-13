@@ -5,9 +5,9 @@
 import asyncio
 import re
 import time
-from program.downloader import humanbytes
+
 from config import ASSISTANT_NAME, BOT_USERNAME, IMG_4, IMG_5
-from driver.decorators import sudo_users_only
+from driver.decorators import sudo_users_only, humanbytes
 from driver.filters import command, other_filters
 from driver.queues import QUEUE, add_to_queue
 from driver.veez import call_py, user
