@@ -120,9 +120,9 @@ async def vplay(c: Client, m: Message):
 
     if replied:
         if replied.video or replied.document:
-            ssd = replied.video.file_size
+            ssd = replied.file_size
             songsize = humanbytes(ssd)
-            loser = await replied.reply("📥 `Downloading Video...` \n\n➥**File Size: {songsize}** ")
+            loser = await replied.reply("📥 `Downloading Video...` \n\n➥**File Size: songsize** ")
             dl = await replied.download()
             link = replied.link
             if len(m.command) < 2:
