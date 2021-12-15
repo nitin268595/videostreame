@@ -5,7 +5,7 @@
 import asyncio
 import re
 from config import ASSISTANT_NAME, BOT_USERNAME, IMG_4, IMG_5
-from driver.decorators import sudo_users_only
+from driver.decorators import humanbytes, sudo_users_only
 from driver.filters import command, other_filters
 from driver.queues import QUEUE, add_to_queue
 from driver.veez import call_py, user
@@ -138,9 +138,11 @@ async def vplay(c: Client, m: Message):
                 if replied.video:
                     songname = replied.video.file_name[:70]
                     songsize = replied.video.file_size
+                    songsidg = humanbytes(songsidg)
                 elif replied.document:
                     songname = replied.document.file_name[:70]
                     songsize = replied.document.file_size
+                    songsidg = humanbytes(songsidg)
             except BaseException:
                 songname = "Video"
 
@@ -170,7 +172,7 @@ async def vplay(c: Client, m: Message):
                 requester = f"[{m.from_user.first_name}](tg://user?id={m.from_user.id})"
                 await m.reply_photo(
                     photo=f"{IMG_5}",
-                    caption=f"➥ **Playing:** `{songname}` {songsize} \n**➥ By:** {requester}",
+                    caption=f"➥ **Playing:** `{songname}` {songsidg} \n**➥ By:** {requester}",
                     )
         else:
             if len(m.command) < 2:
