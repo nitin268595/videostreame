@@ -138,11 +138,11 @@ async def vplay(c: Client, m: Message):
                 if replied.video:
                     songname = replied.video.file_name[:70]
                     songsize = replied.video.file_size
-                    songsidg = humanbytes(songsidg)
+                    songsidg = humanbytes(songsize)
                 elif replied.document:
                     songname = replied.document.file_name[:70]
                     songsize = replied.document.file_size
-                    songsidg = humanbytes(songsidg)
+                    songsidg = humanbytes(songsize)
             except BaseException:
                 songname = "Video"
 
