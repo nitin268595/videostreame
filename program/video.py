@@ -38,17 +38,7 @@ def ytsearch(query):
         print(e)
         return 0
 
-def filesize(replied: m.reply_to_message)
-    try:
-        if replied.video:
-                songji = replied.video.file_size
-                filesize = humanbytes(songji)
-        elif replied.document:
-                songji = replied.document.file_size
-                filesize = humanbytes(songji)
-        except BaseException:
-                filesize = "Vieo"
-           
+ 
 async def ytdl(link):
     proc = await asyncio.create_subprocess_exec(
         "yt-dlp",
@@ -130,8 +120,9 @@ async def vplay(c: Client, m: Message):
 
     if replied:
         if replied.video or replied.document:
-            filesi = filesize(replied)
-            loser = await replied.reply("📥 `Downloading Video...` \n\n➥**File Size: filesi** ")
+            filesi = replied.video.file_size or replied.document.file_size
+            filesie = humanbytes(filesi)
+            loser = await replied.reply("📥 `Downloading Video...` \n\n➥**File Size: filesie** ")
             dl = await replied.download()
             link = replied.link
             if len(m.command) < 2:
