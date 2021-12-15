@@ -124,8 +124,7 @@ async def vplay(c: Client, m: Message):
         
     if replied:
         if replied.video:
-            file_size = f"{humanbytes(m.video.file_size)}"
-            loser = await replied.reply("Downldnig", {file_size}) 
+            loser = await replied.reply("Downldnig", progress=progress, progress args=(replied, start_time)) 
             
             dl = await replied.download()
             link = replied.link
