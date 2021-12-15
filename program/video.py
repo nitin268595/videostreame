@@ -120,7 +120,9 @@ async def vplay(c: Client, m: Message):
 
     if replied:
         if replied.video or replied.document:
-            loser = await replied.reply("📥 `Downloading Video...`")
+            ssd = replied.video.file_size
+            songsize = humanbytes(ssd)
+            loser = await replied.reply("📥 `Downloading Video...` \n\n➥**File Size: {songsize}** ")
             dl = await replied.download()
             link = replied.link
             if len(m.command) < 2:
@@ -137,12 +139,8 @@ async def vplay(c: Client, m: Message):
             try:
                 if replied.video:
                     songname = replied.video.file_name[:70]
-                    songsize = replied.video.file_size
-                    songsidg = humanbytes(songsize)
                 elif replied.document:
                     songname = replied.document.file_name[:70]
-                    songsize = replied.document.file_size
-                    songsidg = humanbytes(songsize)
             except BaseException:
                 songname = "Video"
 
@@ -172,7 +170,7 @@ async def vplay(c: Client, m: Message):
                 requester = f"[{m.from_user.first_name}](tg://user?id={m.from_user.id})"
                 await m.reply_photo(
                     photo=f"{IMG_5}",
-                    caption=f"➥ **Playing:** `{songname}` {songsidg} \n**➥ By:** {requester}",
+                    caption=f"➥ **Playing:** `{songname}`\n**➥ By:** {requester}",
                     )
         else:
             if len(m.command) < 2:
