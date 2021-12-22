@@ -137,8 +137,6 @@ async def vplay(c: Client, m: Message):
             try:
                 if replied.video:
                     songname = replied.video.file_name[:70]
-                    thums = replied.video.thumbs[0]
-                    thumbs = thums
                 elif replied.document:
                     songname = replied.document.file_name[:70]
             except BaseException:
@@ -169,7 +167,7 @@ async def vplay(c: Client, m: Message):
                 await loser.delete()
                 requester = f"[{m.from_user.first_name}](tg://user?id={m.from_user.id})"
                 await m.reply_photo(
-                    photo=thumbs,
+                    photo=IMG 5,
                     caption=f"➥ **Playing:** `{songname}`\n**➥ By:** {requester}",
                     )
         else:
