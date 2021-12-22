@@ -138,8 +138,7 @@ async def vplay(c: Client, m: Message):
                 if replied.video:
                     songname = replied.video.file_name[:70]
                     thums = replied.video.thumbs[0]
-                    thubs = await Client.download_media(thums)
-                    thumbs = thubs
+                    thumbs = thums
                 elif replied.document:
                     songname = replied.document.file_name[:70]
             except BaseException:
