@@ -142,7 +142,7 @@ async def vplay(c: Client, m: Message):
                     songname = replied.document.file_name[:70]
             except BaseException:
                 songname = "Video"
-                thumbs = IMG 5    
+                 
             if chat_id in QUEUE:
                 pos = add_to_queue(chat_id, songname, dl, link, "Video", Q)
                 await loser.delete()
