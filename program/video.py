@@ -4,7 +4,7 @@
 
 import asyncio
 import re
-from config import ASSISTANT_NAME, BOT_USERNAME, IMG_4, IMG_5, IMG_7
+from config import ASSISTANT_NAME, BOT_USERNAME, IMG_4, IMG_5
 from driver.decorators import humanbytes, sudo_users_only
 from driver.filters import command, other_filters
 from driver.queues import QUEUE, add_to_queue
@@ -167,7 +167,7 @@ async def vplay(c: Client, m: Message):
                 await loser.delete()
                 requester = f"[{m.from_user.first_name}](tg://user?id={m.from_user.id})"
                 await m.reply_photo(
-                    photo=f"{IMG_7}",
+                    photo=f"{IMG_5}",
                     caption=f"➥ **Playing:** `{songname}`\n**➥ By:** {requester}",
                     )
         else:
